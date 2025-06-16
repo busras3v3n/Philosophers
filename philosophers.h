@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/11 09:53:37 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/16 20:47:28 by busseven         ###   ########.fr       */
+/*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
+/*   Updated: 2025/06/16 21:09:53 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isdigit(int c)
-{
-	if (c >= 48 && c <= 57)
-		return (1);
-	else
-		return (0);
-}
+#ifndef LIBFT_H
+# define LIBFT_H
 
-void	ft_putendl_fd(char *s, int fd)
-{
-	int		i;
-	char	a;
+# include <stdlib.h>
+# include "philosophers.h"
+# include <unistd.h>
+# include <pthread.h>
+# include <stdio.h>
+# include <limits.h>
 
-	i = 0;
-	a = '\n';
-	while (s[i])
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
-	write(fd, &a, 1);
-}
+
+void	ft_putendl_fd(char *s, int fd);
+int		ft_isdigit(int c);
+
+#endif
