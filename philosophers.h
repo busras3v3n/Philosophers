@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/16 21:09:53 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/17 12:25:43 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,9 @@
 
 void	ft_putendl_fd(char *s, int fd);
 int		ft_isdigit(int c);
+int		ft_atoi(const char *str);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlen(const char *s);
+void	ft_putstr_fd(char *s, int fd);
 
 #endif
