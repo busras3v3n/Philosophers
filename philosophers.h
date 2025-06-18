@@ -23,9 +23,9 @@
 typedef struct s_seat
 {
     int             num;
-    pthread_t       philosophers;
-    pthread_mutex_t left_fork;
-    pthread_mutex_t right_fork;
+    pthread_t       *philosopher;
+    pthread_mutex_t *left_fork;
+    pthread_mutex_t *right_fork;
 	struct s_list	*prev;  
 	struct s_list	*next;
 }	t_seat;
