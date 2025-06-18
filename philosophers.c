@@ -27,18 +27,17 @@ int	is_valid_input(char **argv)
 	int	i;
 	int n;
 
-	i = 0;
+	i = 1;
 	n = 0;
 	while (argv[i])
 	{
+		n = 0;
 		while (argv[i][n])
 		{
 			if (!ft_isdigit(argv[i][n]))
 				return (0);
 			n++;
 		}
-		if(ft_atoi(argv[i]) > INT_MAX)
-			return (0);
 		i++;
 	}
 	return (1);
