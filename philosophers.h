@@ -23,6 +23,10 @@
 typedef struct s_seat
 {
     int             num;
+    int             *death;
+    int             *cur_time;
+    int             last_eaten;
+    int             meals_eaten;
     pthread_t       *philosopher;
     pthread_mutex_t *left_fork;
     pthread_mutex_t *right_fork;
