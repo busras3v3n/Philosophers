@@ -20,6 +20,15 @@
 # include <stdio.h>
 # include <limits.h>
 
+typedef struct s_seat
+{
+    int             num;
+    pthread_t       philosophers;
+    pthread_mutex_t left_fork;
+    pthread_mutex_t right_fork;
+	struct s_list	*prev;  
+	struct s_list	*next;
+}	t_seat;
 
 void	ft_putendl_fd(char *s, int fd);
 int		ft_isdigit(int c);
