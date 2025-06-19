@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:43:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/19 14:27:03 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/19 14:35:12 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ t_seat	*new_seat(t_table *table, int id)
 	new->time_stamp = table->time_stamp;
 	if (table->has_last_param)
 		new->meals_to_eat = table->last_param;
-	if (id != table->philo_count - 1)
+	if (id != table->philo_count)
 	{
 		new->left_fork = ft_calloc(1, sizeof(pthread_mutex_t));
 		pthread_mutex_init(new->left_fork, NULL);
 	}
-	else if (id == 0)
+	else if (id == 1)
 	{
 		new->right_fork = ft_calloc(1, sizeof(pthread_mutex_t));
 		pthread_mutex_init(new->right_fork, NULL);	
@@ -47,6 +47,8 @@ void	add_seat_to_table(t_table *table, t_seat **seats, int id)
 		last = ft_lastnode(*seats);
 		last->next = new_seat(table, id);
 		last->next->prev = last;
+		if(id == table->philo_count)
+			last->next->next = *seats;
 	}
 }
 
@@ -54,11 +56,17 @@ void	prepare_table(t_table *table)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	table->seats = ft_calloc(table->philo_count, sizeof(t_seat *));
-	while(i < table->philo_count)
+	while(i <= table->philo_count)
 	{
 		add_seat_to_table(table, table->seats, i);
 		i++;
+	}
+	i = 0;
+	while(i <= table->philo_count)
+	{
+		if (i == 0)
+		{}
 	}
 }
