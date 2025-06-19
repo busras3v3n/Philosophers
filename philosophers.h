@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/19 12:42:30 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:14:20 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ void	ft_putstr_fd(char *s, int fd);
 int		is_valid_input(char **argv);
 void	wrong_format();
 void	*ft_calloc(size_t count, size_t size);
+t_seat	*ft_lastnode(t_seat *seats);
 
 #endif
