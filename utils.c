@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:53:37 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/17 12:25:32 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/19 12:33:00 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	ft_atoi(const char *str)
 	int	result;
 
 	result = 0;
-	if (str[0] == '\0')
+	if (!str || str[0] == '\0')
 		return (result);
 	i = ft_skipspace(str);
 	sign = 1;
