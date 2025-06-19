@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:43:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/19 13:44:05 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/19 14:14:31 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_seat	*new_seat(t_table *table, int id)
 	new->num = id;
 	new->death = table->death;
 	new->cur_time = table->cur_time;
+	new->time_stamp = table->time_stamp;
 	if (table->has_last_param)
 		new->meals_to_eat = table->last_param;
 	if (id != table->philo_count - 1)
