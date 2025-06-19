@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/19 13:44:14 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/19 14:08:11 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ typedef struct s_seat
     int             num;
 	int				born_time;
     int             *death;
-    int             *cur_time;
-    int             *last_eaten;
+    long long       *cur_time;
+    long long       *last_eaten;
 	int				meals_to_eat;
     int             meals_eaten;
     pthread_t       *philosopher;
@@ -39,30 +39,31 @@ typedef struct s_seat
 
 typedef struct  s_table
 {
-    pthread_t	*monitor;
-	t_seat		**seats;
-    int			*death;
-	int			philo_count;
-	int			start_time;
-    int			time_to_eat;
-    int			time_to_die;
-    int			time_to_sleep;
-    int			last_param;
-	int			has_last_param;
-	int			*cur_time;
+    pthread_t       *monitor;
+	t_seat		    **seats;
+    int			    *death;
+	int			    philo_count;
+	long long		start_time;
+    int			    time_to_eat;
+    int			    time_to_die;
+    int			    time_to_sleep;
+    int			    last_param;
+	int			    has_last_param;
+	long long	    *cur_time;
 	
 }	t_table;
 
-void	ft_putendl_fd(char *s, int fd);
-int		ft_isdigit(int c);
-int		ft_atoi(const char *str);
-char	*ft_strchr(const char *s, int c);
-size_t	ft_strlen(const char *s);
-void	ft_putstr_fd(char *s, int fd);
-int		is_valid_input(char **argv);
-void	wrong_format();
-void	*ft_calloc(size_t count, size_t size);
-t_seat	*ft_lastnode(t_seat *seats);
-void	prepare_table(t_table *table);
+void	    ft_putendl_fd(char *s, int fd);
+int		    ft_isdigit(int c);
+int		    ft_atoi(const char *str);
+char	    *ft_strchr(const char *s, int c);
+size_t	    ft_strlen(const char *s);
+void	    ft_putstr_fd(char *s, int fd);
+int		    is_valid_input(char **argv);
+void	    wrong_format();
+void	    *ft_calloc(size_t count, size_t size);
+t_seat	    *ft_lastnode(t_seat *seats);
+void	    prepare_table(t_table *table);
+long long	get_current_time();
 
 #endif
