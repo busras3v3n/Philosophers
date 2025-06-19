@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/19 13:43:48 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/19 14:11:56 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,7 @@ int	main(int argc, char **argv)
 		wrong_format();
 	}
 	init_data(table, argv, argc);
+	printf("%llu\n", get_current_time());
+	usleep(100000);
+	printf("%llu", get_current_time());
 }
