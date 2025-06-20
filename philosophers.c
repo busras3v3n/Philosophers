@@ -6,12 +6,16 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/19 14:14:10 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/20 11:19:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+void	invite_philosophers(t_table *table)
+{
+	
+}
 void	init_data(t_table *table, char **argv, int argc)
 {
 	table->philo_count = ft_atoi(argv[1]);
@@ -44,4 +48,5 @@ int	main(int argc, char **argv)
 	printf("%llu\n", get_current_time());
 	usleep(100000);
 	printf("%llu", get_current_time());
+	invite_philosophers(table);
 }

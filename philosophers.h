@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/19 14:51:11 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/20 11:20:37 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_seat
 
 typedef struct  s_table
 {
-    pthread_t       *monitor;
+    pthread_t       *waiter;
 	t_seat		    **seats;
     int			    *death;
 	int			    philo_count;
