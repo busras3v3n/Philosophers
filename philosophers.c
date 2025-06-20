@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/20 11:19:42 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/20 12:59:52 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	invite_philosophers(t_table *table)
 {
-	
+	(void)table;
 }
 void	init_data(t_table *table, char **argv, int argc)
 {
@@ -22,20 +22,21 @@ void	init_data(t_table *table, char **argv, int argc)
 	table->time_to_die	= ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
 	table->time_to_sleep = ft_atoi(argv[4]);
-	table->time_stamp = ft_calloc(1, sizeof(int));
+	table->time_stamp = safe_calloc(1, sizeof(int));
 	if (argc == 5)
 	{
 		table->has_last_param = 1;
 		table->last_param = ft_atoi(argv[5]);
 	}
-	table->death = ft_calloc(1, sizeof(int));
+	table->death = safe_calloc(1, sizeof(int));
+	pthread_mutex_init(&table->table_mutex, NULL);
 	prepare_table(table);
 }
 int	main(int argc, char **argv)
 {
 	t_table	*table;
 
-	table = ft_calloc(1, sizeof(t_table));
+	table = safe_calloc(1, sizeof(t_table));
 	if ((argc != 5 && argc != 4) || !is_valid_input(argv))
 	{
 		if(argc != 5 && argc != 4)
@@ -45,8 +46,5 @@ int	main(int argc, char **argv)
 		wrong_format();
 	}
 	init_data(table, argv, argc);
-	printf("%llu\n", get_current_time());
-	usleep(100000);
-	printf("%llu", get_current_time());
 	invite_philosophers(table);
 }
