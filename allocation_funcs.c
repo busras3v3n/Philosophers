@@ -6,20 +6,12 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 12:30:36 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/20 13:00:33 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:04:31 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	*safe_calloc(size_t count, size_t size)
-{
-	void	*r;
-
-	r = ft_calloc(count, size);
-	if(!r)
-		exit(1);
-}
 t_seat	*ft_lastnode(t_seat *seats)
 {
 	if(!seats)

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:43:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/20 13:00:25 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:05:26 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_seat	*new_seat(t_table *table, int id)
 {
 	t_seat	*new;
 
-	new = safe_calloc(1, sizeof(t_seat));
+	new = ft_calloc(1, sizeof(t_seat));
 	new->num = id;
 	new->death = table->death;
 	new->cur_time = table->cur_time;
@@ -25,12 +25,12 @@ t_seat	*new_seat(t_table *table, int id)
 		new->meals_to_eat = table->last_param;
 	if (id != table->philo_count)
 	{
-		new->left_fork = safe_calloc(1, sizeof(pthread_mutex_t));
+		new->left_fork = ft_calloc(1, sizeof(pthread_mutex_t));
 		pthread_mutex_init(new->left_fork, NULL);
 	}
 	else if (id == 1)
 	{
-		new->right_fork = safe_calloc(1, sizeof(pthread_mutex_t));
+		new->right_fork = ft_calloc(1, sizeof(pthread_mutex_t));
 		pthread_mutex_init(new->right_fork, NULL);	
 	}
 	return (new);
@@ -58,7 +58,7 @@ void	prepare_table(t_table *table)
 	t_seat *tmp;
 
 	i = 1;
-	table->seats = safe_calloc(table->philo_count, sizeof(t_seat *));
+	table->seats = ft_calloc(table->philo_count, sizeof(t_seat *));
 	while(i <= table->philo_count)
 	{
 		add_seat_to_table(table, table->seats, i);

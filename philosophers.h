@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/20 13:00:51 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:05:08 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ t_seat	    *ft_lastnode(t_seat *seats);
 void	    prepare_table(t_table *table);
 long long	get_current_time();
 int	        ft_atoi(const char *str);
-void	    *safe_calloc(size_t count, size_t size);
+void	    *ft_calloc(size_t count, size_t size);
 
 #endif
