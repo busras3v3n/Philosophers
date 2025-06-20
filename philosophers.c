@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/20 13:04:57 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:17:50 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ void	init_data(t_table *table, char **argv, int argc)
 	table->time_to_die	= ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
 	table->time_to_sleep = ft_atoi(argv[4]);
-	table->time_stamp = ft_calloc(1, sizeof(int));
 	if (argc == 5)
 	{
 		table->has_last_param = 1;
 		table->last_param = ft_atoi(argv[5]);
 	}
-	table->death = ft_calloc(1, sizeof(int));
 	pthread_mutex_init(&table->table_mutex, NULL);
 	prepare_table(table);
 }

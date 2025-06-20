@@ -6,11 +6,20 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:43:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/20 13:05:26 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:18:10 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+t_seat	*ft_lastnode(t_seat *seats)
+{
+	if(!seats)
+		return (NULL);
+	while (seats->next != NULL)
+		seats = seats->next;
+	return(seats);
+}
 
 t_seat	*new_seat(t_table *table, int id)
 {
@@ -18,9 +27,6 @@ t_seat	*new_seat(t_table *table, int id)
 
 	new = ft_calloc(1, sizeof(t_seat));
 	new->num = id;
-	new->death = table->death;
-	new->cur_time = table->cur_time;
-	new->time_stamp = table->time_stamp;
 	if (table->has_last_param)
 		new->meals_to_eat = table->last_param;
 	if (id != table->philo_count)
