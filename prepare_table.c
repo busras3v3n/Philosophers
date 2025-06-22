@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_table.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:43:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/20 13:18:10 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:00:00 by busra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	prepare_table(t_table *table)
 	{
 		if (i != 1)
 			tmp->right_fork = tmp->prev->left_fork;
-		if (i == table->philo_count)
+		if (i == table->philo_count && tmp->next)
 			tmp->left_fork = tmp->next->right_fork;
 		i++;
 		tmp = tmp->next;
