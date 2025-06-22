@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 14:02:01 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/22 16:19:51 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/22 18:09:01 by busra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,9 @@ long long	get_current_time()
 
 	gettimeofday(&tv, NULL);
 	return ((long long)(tv.tv_sec * 1000 + tv.tv_usec / 1000));
+}
+
+long long	get_time_stamp(long long start_time)
+{
+	return(start_time - get_current_time());
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/20 13:17:13 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/22 18:18:02 by busra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct  s_table
     int             time_stamp;
     int             all_threads_ready;
     pthread_mutex_t table_mutex;
+    pthread_mutex_t stop_mutex;
     pthread_mutex_t write_mutex;
 	long long	    cur_time;
     int             wait;
@@ -72,6 +73,8 @@ void	    prepare_table(t_table *table);
 long long	get_current_time();
 int	        ft_atoi(const char *str);
 void	    set_int(pthread_mutex_t *mtx, int *i, int set);
-int	read_int(pthread_mutex_t *mtx, int *i);
+int	        read_int(pthread_mutex_t *mtx, int *i);
+long long   read_long(pthread_mutex_t *mtx, long long *l);
+void	    set_longlong(pthread_mutex_t *mtx, long long *i, long long set);
 
 #endif
