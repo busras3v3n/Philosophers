@@ -25,3 +25,12 @@ void	set_longlong(pthread_mutex_t *mtx, long long *i, long long set)
 	*i = set;
 	pthread_mutex_unlock(mtx);
 }
+
+int	read_int(pthread_mutex_t *mtx, int *i)
+{
+	int	val;
+	pthread_mutex_lock(mtx);
+	val = *i;
+	pthread_mutex_unlock(mtx);
+	return (val);
+}

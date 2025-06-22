@@ -21,24 +21,10 @@
 # include <limits.h>
 # include <sys/time.h>
 
-typedef struct s_seat
-{
-    int             num;
-	int				born_time;
-    long long       last_eaten;
-	int				meals_to_eat;
-    int             meals_eaten;
-    pthread_t       *philosopher;
-    pthread_mutex_t *left_fork;
-    pthread_mutex_t *right_fork;
-	struct s_seat	*prev;  
-	struct s_seat	*next;
-}	t_seat;
-
 typedef struct  s_table
 {
     pthread_t       *waiter;
-	t_seat		    **seats;
+	struct s_seat		    **seats;
     int			    death;
 	int			    philo_count;
 	long long		start_time;
@@ -50,9 +36,27 @@ typedef struct  s_table
     int             time_stamp;
     int             all_threads_ready;
     pthread_mutex_t table_mutex;
+    pthread_mutex_t write_mutex;
 	long long	    cur_time;
+    int             wait;
 	
 }	t_table;
+
+typedef struct s_seat
+{
+    int             num;
+    int             chair_num;
+	int				born_time;
+    long long       last_eaten;
+	int				meals_to_eat;
+    int             meals_eaten;
+    pthread_t       *philosopher;
+    pthread_mutex_t *left_fork;
+    pthread_mutex_t *right_fork;
+	struct s_seat	*prev;  
+	struct s_seat	*next;
+    t_table         *table;
+}	t_seat;
 
 void	    ft_putendl_fd(char *s, int fd);
 int		    ft_isdigit(int c);
@@ -67,5 +71,7 @@ t_seat	    *ft_lastnode(t_seat *seats);
 void	    prepare_table(t_table *table);
 long long	get_current_time();
 int	        ft_atoi(const char *str);
+void	    set_int(pthread_mutex_t *mtx, int *i, int set);
+int	read_int(pthread_mutex_t *mtx, int *i);
 
 #endif

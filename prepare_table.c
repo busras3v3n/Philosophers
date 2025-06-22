@@ -27,6 +27,8 @@ t_seat	*new_seat(t_table *table, int id)
 
 	new = ft_calloc(1, sizeof(t_seat));
 	new->num = id;
+	new->chair_num = id;
+	new->philosopher = ft_calloc(1, sizeof(pthread_t));
 	if (table->has_last_param)
 		new->meals_to_eat = table->last_param;
 	if (id != table->philo_count)
@@ -39,6 +41,7 @@ t_seat	*new_seat(t_table *table, int id)
 		new->right_fork = ft_calloc(1, sizeof(pthread_mutex_t));
 		pthread_mutex_init(new->right_fork, NULL);	
 	}
+	new->table = table;
 	return (new);
 }
 
