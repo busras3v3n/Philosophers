@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:53:37 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/19 14:50:33 by busseven         ###   ########.fr       */
+/*   Updated: 2025/06/22 18:57:12 by busra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,19 @@ void	ft_putendl_fd(char *s, int fd)
 		i++;
 	}
 	write(fd, &a, 1);
+}
+void	ft_putnbr_fd(unsigned long long n, int fd)
+{
+	char	c;
+
+	if (n > 9)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+	else if (n <= 9)
+	{
+		c = '0' + n;
+		write(fd, &c, 1);
+	}
 }

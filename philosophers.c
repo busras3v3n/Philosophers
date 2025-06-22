@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/22 18:24:07 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/22 18:57:30 by busra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	*routine(void *void_seat)
 {
 	t_seat *seat;
 
+	seat = void_seat;
 	while(read_int(&seat->table->table_mutex, &seat->table->wait) == 0)
 		;
 	while(1)
 	{
-		seat = void_seat;
 		pthread_mutex_lock(&seat->table->write_mutex);
 		ft_putendl_fd("all threads created", 1);
 		pthread_mutex_unlock(&seat->table->write_mutex);	
@@ -87,6 +87,7 @@ int	main(int argc, char **argv)
 {
 	t_table	*table;
 
+	ft_putnbr_fd(100, 1);
 	table = ft_calloc(1, sizeof(t_table));
 	if ((argc != 5 && argc != 4) || !is_valid_input(argv))
 	{

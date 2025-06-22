@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/22 18:18:02 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/22 18:56:09 by busra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct  s_table
 	struct s_seat		    **seats;
     int			    death;
 	int			    philo_count;
-	long long		start_time;
+	unsigned long long		start_time;
     int			    time_to_eat;
     int			    time_to_die;
     int			    time_to_sleep;
@@ -38,7 +38,7 @@ typedef struct  s_table
     pthread_mutex_t table_mutex;
     pthread_mutex_t stop_mutex;
     pthread_mutex_t write_mutex;
-	long long	    cur_time;
+	unsigned long long	    cur_time;
     int             wait;
 	
 }	t_table;
@@ -48,7 +48,7 @@ typedef struct s_seat
     int             num;
     int             chair_num;
 	int				born_time;
-    long long       last_eaten;
+    unsigned long long       last_eaten;
 	int				meals_to_eat;
     int             meals_eaten;
     pthread_t       *philosopher;
@@ -70,11 +70,12 @@ void	    wrong_format();
 void	    *ft_calloc(size_t count, size_t size);
 t_seat	    *ft_lastnode(t_seat *seats);
 void	    prepare_table(t_table *table);
-long long	get_current_time();
+unsigned long long	get_current_time();
 int	        ft_atoi(const char *str);
 void	    set_int(pthread_mutex_t *mtx, int *i, int set);
 int	        read_int(pthread_mutex_t *mtx, int *i);
-long long   read_long(pthread_mutex_t *mtx, long long *l);
-void	    set_longlong(pthread_mutex_t *mtx, long long *i, long long set);
+unsigned long long   read_long(pthread_mutex_t *mtx, long long *l);
+void	    set_longlong(pthread_mutex_t *mtx, unsigned long long *i, unsigned long long set);
+void	    ft_putnbr_fd(unsigned long long n, int fd);
 
 #endif
