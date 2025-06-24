@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/24 08:43:55 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/24 10:04:38 by busra            ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "philosophers.h"
 
@@ -21,9 +21,8 @@ void	*routine(void *void_seat)
 		;
 	while(1)
 	{
-		pthread_mutex_lock(&seat->table->write_mutex);
-		ft_putendl_fd("all threads created", 1);
-		pthread_mutex_unlock(&seat->table->write_mutex);	
+		write_with_mtx(&seat->table->write_mutex, get_time_stamp(seat->table->start_time), seat->num, "THINK");
+		philo_pause(500);
 	}
 	return (NULL);
 }
@@ -86,7 +85,6 @@ int	main(int argc, char **argv)
 {
 	t_table	*table;
 
-	ft_putnbr_fd(100, 1);
 	table = ft_calloc(1, sizeof(t_table));
 	if ((argc != 5 && argc != 4) || !is_valid_input(argv))
 	{
