@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/24 10:04:38 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/24 11:20:20 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,7 +19,7 @@ void	*routine(void *void_seat)
 	seat = void_seat;
 	while(read_int(&seat->table->table_mutex, &seat->table->wait) == 0)
 		;
-	while(1)
+	while(!read_int(&seat->table->table_mutex, &seat->table->death))
 	{
 		write_with_mtx(&seat->table->write_mutex, get_time_stamp(seat->table->start_time), seat->num, "THINK");
 		philo_pause(500);
@@ -29,13 +29,34 @@ void	*routine(void *void_seat)
 void	*waiter(void *void_table)
 {
 	t_table	*table;
+	t_seat	*seats;
+	t_seat	*temp;
+	int		br;
 
 	table = void_table;
+	seats = *(table->seats);
+	br = 0;
 	while(read_int(&table->table_mutex, &table->wait) == 0)
 		;
 	set_longlong(&table->stop_mutex, &table->start_time, get_current_time());
-	while(!read_int(&table->stop_mutex, &table->death))
-		;
+	temp = seats;
+	while(1)
+	{
+		seats = temp;
+		while(seats)
+		{
+			if(get_time_stamp(table->start_time) - seats->last_eaten >= (unsigned long long)table->time_to_die)
+			{
+				set_int(&table->table_mutex, &table->death, 1);
+				write_with_mtx(&table->write_mutex, get_time_stamp(table->start_time), seats->num, "DIE");
+				br = 1;
+				break ;	
+			}
+			seats = seats->next;
+		}
+		if(br == 1)
+			break ;
+	}
 	return (NULL);
 }
 void	invite_philosophers(t_table *table)
