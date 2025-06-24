@@ -1,17 +1,17 @@
-# **************************************************************************** #
+#******************************************************************************#
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
+#    By: busra <busseven@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/11 10:00:17 by busseven          #+#    #+#              #
-#    Updated: 2025/06/20 13:35:36 by busseven         ###   ########.fr        #
+#    Updated: 2025/06/24 09:41:51 by busra            ###   ########.fr        #
 #                                                                              #
-# **************************************************************************** #
+#******************************************************************************#
 
 SRCS = philosophers.c utils.c check_format.c allocation_funcs.c \
-prepare_table.c get_time.c ft_atoi.c setters.c
+prepare_table.c get_time.c ft_atoi.c setters.c routine_utils.c
 OBJS = $(SRCS:.c=.o)
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror

@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/22 18:56:09 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/24 09:38:27 by busra            ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -77,5 +77,6 @@ int	        read_int(pthread_mutex_t *mtx, int *i);
 unsigned long long   read_long(pthread_mutex_t *mtx, long long *l);
 void	    set_longlong(pthread_mutex_t *mtx, unsigned long long *i, unsigned long long set);
 void	    ft_putnbr_fd(unsigned long long n, int fd);
+int	        ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif

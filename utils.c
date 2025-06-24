@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:53:37 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/22 18:57:12 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/24 09:38:11 by busra            ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "philosophers.h"
 
@@ -60,4 +60,28 @@ void	ft_putnbr_fd(unsigned long long n, int fd)
 		c = '0' + n;
 		write(fd, &c, 1);
 	}
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	unsigned char	*s1u;
+	unsigned char	*s2u;
+	size_t			i;
+
+	s1u = (unsigned char *)s1;
+	s2u = (unsigned char *)s2;
+	i = 0;
+	while (i < n)
+	{
+		if (s1u[i] == '\0' && s2u[i] == '\0')
+			return (0);
+		else if (!s1u[i] && s2u[i])
+			return (-s2u[i]);
+		else if (!s2u[i] && s1u[i])
+			return (s1u[i]);
+		else if (s1u[i] != s2u[i])
+			return (s1u[i] - s2u[i]);
+		i++;
+	}
+	return (0);
 }

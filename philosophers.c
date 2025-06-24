@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/22 18:57:30 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/24 08:43:55 by busra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	*waiter(void *void_table)
 	while(read_int(&table->table_mutex, &table->wait) == 0)
 		;
 	set_longlong(&table->stop_mutex, &table->start_time, get_current_time());
-	printf("%d\n", table->death);
 	while(!read_int(&table->stop_mutex, &table->death))
 		;
 	return (NULL);
