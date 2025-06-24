@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:30:54 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/24 09:42:52 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/24 12:18:40 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -34,7 +34,7 @@ int	read_int(pthread_mutex_t *mtx, int *i)
 	pthread_mutex_unlock(mtx);
 	return (val);
 }
-unsigned long long read_long(pthread_mutex_t *mtx, long long *l)
+unsigned long long read_long(pthread_mutex_t *mtx, unsigned long long *l)
 {
 	unsigned long long val;
 	pthread_mutex_lock(mtx);

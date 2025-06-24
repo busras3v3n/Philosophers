@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/24 10:00:06 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/24 12:18:26 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -74,7 +74,7 @@ unsigned long long	get_current_time();
 int	        ft_atoi(const char *str);
 void	    set_int(pthread_mutex_t *mtx, int *i, int set);
 int	        read_int(pthread_mutex_t *mtx, int *i);
-unsigned long long   read_long(pthread_mutex_t *mtx, long long *l);
+unsigned long long   read_long(pthread_mutex_t *mtx, unsigned long long *l);
 void	    set_longlong(pthread_mutex_t *mtx, unsigned long long *i, unsigned long long set);
 void	    ft_putnbr_fd(unsigned long long n, int fd);
 int	        ft_strncmp(const char *s1, const char *s2, size_t n);

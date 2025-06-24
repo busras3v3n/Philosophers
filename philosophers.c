@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/24 11:20:20 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/24 12:23:58 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -21,7 +21,7 @@ void	*routine(void *void_seat)
 		;
 	while(!read_int(&seat->table->table_mutex, &seat->table->death))
 	{
-		write_with_mtx(&seat->table->write_mutex, get_time_stamp(seat->table->start_time), seat->num, "THINK");
+		write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "THINK");
 		philo_pause(500);
 	}
 	return (NULL);
@@ -38,17 +38,16 @@ void	*waiter(void *void_table)
 	br = 0;
 	while(read_int(&table->table_mutex, &table->wait) == 0)
 		;
-	set_longlong(&table->stop_mutex, &table->start_time, get_current_time());
 	temp = seats;
 	while(1)
 	{
 		seats = temp;
 		while(seats)
 		{
-			if(get_time_stamp(table->start_time) - seats->last_eaten >= (unsigned long long)table->time_to_die)
+			if(get_time_stamp(read_long(&table->table_mutex, &table->start_time)) - seats->last_eaten >= (unsigned long long)table->time_to_die)
 			{
 				set_int(&table->table_mutex, &table->death, 1);
-				write_with_mtx(&table->write_mutex, get_time_stamp(table->start_time), seats->num, "DIE");
+				write_with_mtx(&table->write_mutex, get_time_stamp(read_long(&table->table_mutex, &table->start_time)), seats->num, "DIE");
 				br = 1;
 				break ;	
 			}
@@ -75,6 +74,7 @@ void	invite_philosophers(t_table *table)
 	}
 	i = 1;
 	seats = *(table->seats);
+	set_longlong(&table->stop_mutex, &table->start_time, get_current_time());
 	set_int(&(table->table_mutex), &(table->wait), 1);
 	while(i <= table->philo_count)
 	{
