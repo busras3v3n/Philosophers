@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/24 12:18:26 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/24 16:20:01 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -24,7 +24,8 @@
 typedef struct  s_table
 {
     pthread_t       *waiter;
-	struct s_seat		    **seats;
+	struct s_seat	**seats;
+    void            **philo_arr;
     int			    death;
 	int			    philo_count;
 	unsigned long long		start_time;
@@ -80,6 +81,6 @@ void	    ft_putnbr_fd(unsigned long long n, int fd);
 int	        ft_strncmp(const char *s1, const char *s2, size_t n);
 void	write_with_mtx(pthread_mutex_t *mtx, long long timestamp, int id, char *action);
 unsigned long long	get_time_stamp(unsigned long long start_time);
-void    philo_pause(long long time);
+void    philo_pause(long long time, int philo_count);
 
 #endif
