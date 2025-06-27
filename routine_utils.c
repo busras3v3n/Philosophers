@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 08:44:29 by busra             #+#    #+#             */
-/*   Updated: 2025/06/25 14:14:13 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/27 13:04:30 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -26,9 +26,11 @@ void    philo_pause(unsigned long long time, int philo_count)
         sleep_duration = 1000000;
     else
         sleep_duration = 500000;
-    while(get_current_time() < target_time)
+    while(get_current_time() + 5 < target_time)
     {
         if(usleep(sleep_duration))
             return ;
     }
+    while(get_current_time() < target_time)
+        ;
 }
