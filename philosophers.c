@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/27 14:29:02 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/27 14:57:58 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -25,7 +25,20 @@ void	*routine(void *void_seat)
 		philo_pause(100, seat->table->philo_count);
 		if(seat->chair_num % 2 == 0)
 		{
+			write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "THINK");
+			seat->chair_num++;
+		}
+		else
+		{
 			pthread_mutex_lock(seat->left_fork);
+			write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "FORK");
+			pthread_mutex_lock(seat->right_fork);
+			write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "FORK");
+			philo_pause(seat->table->time_to_eat, seat->table->philo_count);
+			pthread_mutex_unlock(seat->left_fork);
+			pthread_mutex_unlock(seat->right_fork);
+			philo_pause(seat->table->time_to_sleep, seat->table->philo_count);
+			seat->chair_num++;
 		}
 	}
 	return (NULL);
