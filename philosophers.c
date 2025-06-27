@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/24 16:20:43 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/27 14:29:02 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -23,6 +23,10 @@ void	*routine(void *void_seat)
 	{
 		write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "THINK");
 		philo_pause(100, seat->table->philo_count);
+		if(seat->chair_num % 2 == 0)
+		{
+			pthread_mutex_lock(seat->left_fork);
+		}
 	}
 	return (NULL);
 }
