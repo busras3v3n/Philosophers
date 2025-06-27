@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:43:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/27 14:47:17 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/27 15:47:06 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -49,7 +49,12 @@ void	add_seat_to_table(t_table *table, t_seat **seats, int id)
 		last->next = new_seat(table, id);
 		last->next->prev = last;
 		if(id == table->philo_count)
+		{
 			(*seats)->prev = ft_lastnode(*seats);
+			last = ft_lastnode(*seats);
+			last->next = (*seats);
+			last->last_philo = 1;	
+		}
 	}
 }
 

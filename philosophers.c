@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/27 15:07:08 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/27 15:46:04 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -23,10 +23,10 @@ void	*routine(void *void_seat)
 	{
 		write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "THINK");
 		philo_pause(100, seat->table->philo_count);
-		if(seat->chair_num % 2 == 0)
+		if(seat->chair_num % 2 == 0 || seat->last_philo)
 		{
 			write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "THINK");
-			seat->chair_num++;
+			seat->chair_num = seat->next->chair_num;
 		}
 		else
 		{
@@ -40,7 +40,7 @@ void	*routine(void *void_seat)
 			pthread_mutex_unlock(seat->left_fork);
 			pthread_mutex_unlock(seat->right_fork);
 			philo_pause(seat->table->time_to_sleep, seat->table->philo_count);
-			seat->chair_num++;
+			seat->chair_num = seat->next->chair_num;
 		}
 	}
 	return (NULL);

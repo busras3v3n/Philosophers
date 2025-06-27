@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/24 17:49:41 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/27 15:39:52 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -52,6 +52,7 @@ typedef struct s_seat
     unsigned long long       last_eaten;
 	int				meals_to_eat;
     int             meals_eaten;
+    int             last_philo;
     pthread_t       *philosopher;
     pthread_mutex_t *left_fork;
     pthread_mutex_t *right_fork;
