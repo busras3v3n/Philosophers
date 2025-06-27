@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/27 14:57:58 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/27 15:07:08 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -34,7 +34,9 @@ void	*routine(void *void_seat)
 			write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "FORK");
 			pthread_mutex_lock(seat->right_fork);
 			write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "FORK");
+			write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "EAT");
 			philo_pause(seat->table->time_to_eat, seat->table->philo_count);
+			seat->last_eaten = get_time_stamp(seat->table->start_time);
 			pthread_mutex_unlock(seat->left_fork);
 			pthread_mutex_unlock(seat->right_fork);
 			philo_pause(seat->table->time_to_sleep, seat->table->philo_count);
@@ -60,7 +62,7 @@ void	*waiter(void *void_table)
 		while(i < table->philo_count)
 		{
 			seat = table->philo_arr[i];
-			if(get_time_stamp(read_long(&table->table_mutex, &table->start_time)) - seat->last_eaten >= (unsigned long long)table->time_to_die)
+			if(get_time_stamp(table->start_time) - seat->last_eaten >= (unsigned long long)table->time_to_die)
 			{
 				set_int(&table->table_mutex, &table->death, 1);
 				write_with_mtx(&table->write_mutex, get_time_stamp(read_long(&table->table_mutex, &table->start_time)), seat->num, "DIE");
