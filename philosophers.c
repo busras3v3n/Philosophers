@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
+/*   By: busra <busra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/27 15:46:04 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/29 12:30:11 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -21,12 +21,11 @@ void	*routine(void *void_seat)
 		;
 	while(!read_int(&seat->table->table_mutex, &seat->table->death))
 	{
-		write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "THINK");
-		philo_pause(100, seat->table->philo_count);
-		if(seat->chair_num % 2 == 0 || seat->last_philo)
+		if(seat->chair_num % 2 == 1 || (seat->table->philo_count % 2 == 1 && seat->chair_num == seat->table->philo_count))
 		{
 			write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "THINK");
 			seat->chair_num = seat->next->chair_num;
+			philo_pause(seat->table->time_to_eat, seat->table->philo_count);
 		}
 		else
 		{
@@ -39,6 +38,7 @@ void	*routine(void *void_seat)
 			seat->last_eaten = get_time_stamp(seat->table->start_time);
 			pthread_mutex_unlock(seat->left_fork);
 			pthread_mutex_unlock(seat->right_fork);
+			write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "SLEEP");
 			philo_pause(seat->table->time_to_sleep, seat->table->philo_count);
 			seat->chair_num = seat->next->chair_num;
 		}
