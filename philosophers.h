@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
+/*   By: busra <busra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/27 15:39:52 by busra            ###   ########.fr       */
+/*   Updated: 2025/06/29 12:37:11 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -39,6 +39,7 @@ typedef struct  s_table
     pthread_mutex_t table_mutex;
     pthread_mutex_t stop_mutex;
     pthread_mutex_t write_mutex;
+    pthread_mutex_t eat_mtx;
 	unsigned long long	    cur_time;
     int             wait;
 	
