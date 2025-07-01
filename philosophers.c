@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busra <busra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/29 12:43:53 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/01 13:01:56 by busseven         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "philosophers.h"
 
@@ -23,22 +23,22 @@ void	*routine(void *void_seat)
 	{
 		if(seat->chair_num % 2 == 1 || (seat->table->philo_count % 2 == 1 && seat->chair_num == seat->table->philo_count))
 		{
-			write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "THINK");
+			write_with_mtx(seat, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), "THINK");
 			seat->chair_num = seat->next->chair_num;
 			philo_pause(seat->table->time_to_eat, seat->table->philo_count);
 		}
 		else
 		{
 			pthread_mutex_lock(seat->left_fork);
-			write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "FORK");
+			write_with_mtx(seat, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), "FORK");
 			pthread_mutex_lock(seat->right_fork);
-			write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "FORK");
-			write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "EAT");
+			write_with_mtx(seat, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), "FORK");
+			write_with_mtx(seat, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), "EAT");
 			philo_pause(seat->table->time_to_eat, seat->table->philo_count);
 			set_longlong(&seat->table->eat_mtx, &seat->last_eaten, get_time_stamp(seat->table->start_time));
 			pthread_mutex_unlock(seat->left_fork);
 			pthread_mutex_unlock(seat->right_fork);
-			write_with_mtx(&seat->table->write_mutex, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), seat->num, "SLEEP");
+			write_with_mtx(seat, get_time_stamp(read_long(&seat->table->table_mutex, &seat->table->start_time)), "SLEEP");
 			philo_pause(seat->table->time_to_sleep, seat->table->philo_count);
 			seat->chair_num = seat->next->chair_num;
 		}
@@ -65,7 +65,7 @@ void	*waiter(void *void_table)
 			if(get_time_stamp(table->start_time) - read_long(&seat->table->eat_mtx, &seat->last_eaten) >= (unsigned long long)table->time_to_die)
 			{
 				set_int(&table->table_mutex, &table->death, 1);
-				write_with_mtx(&table->write_mutex, get_time_stamp(read_long(&table->table_mutex, &table->start_time)), seat->num, "DIE");
+				write_death(seat, get_time_stamp(read_long(&table->table_mutex, &table->start_time)));
 				br = 1;
 				break ;	
 			}

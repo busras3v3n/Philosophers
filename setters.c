@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   setters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:30:54 by busseven          #+#    #+#             */
-/*   Updated: 2025/06/24 12:18:40 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/01 13:03:22 by busseven         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "philosophers.h"
 
@@ -42,12 +42,24 @@ unsigned long long read_long(pthread_mutex_t *mtx, unsigned long long *l)
 	pthread_mutex_unlock(mtx);
 	return (val);
 }
-void	write_with_mtx(pthread_mutex_t *mtx, long long timestamp, int id, char *action)
+void	write_death(t_seat *seat, long long timestamp)
 {
-	pthread_mutex_lock(mtx);
+	pthread_mutex_lock(&seat->table->write_mutex);
 	ft_putnbr_fd(timestamp, 1);
 	ft_putstr_fd(" ", 1);
-	ft_putnbr_fd((long long)id, 1);
+	ft_putnbr_fd((long long)seat->num, 1);
+	ft_putstr_fd(" ", 1);
+	ft_putstr_fd("died\n", 1);
+	pthread_mutex_unlock(&seat->table->write_mutex);
+}
+void	write_with_mtx(t_seat *seat, long long timestamp, char *action)
+{
+	if(read_int(&seat->table->table_mutex, &seat->table->death))
+		return ;
+	pthread_mutex_lock(&seat->table->write_mutex);
+	ft_putnbr_fd(timestamp, 1);
+	ft_putstr_fd(" ", 1);
+	ft_putnbr_fd((long long)seat->num, 1);
 	ft_putstr_fd(" ", 1);
 	if(!ft_strncmp(action, "SLEEP", ft_strlen(action)))
 		ft_putstr_fd("is sleeping\n", 1);
@@ -57,9 +69,7 @@ void	write_with_mtx(pthread_mutex_t *mtx, long long timestamp, int id, char *act
 		ft_putstr_fd("is eating\n", 1);
 	else if(!ft_strncmp(action, "FORK", ft_strlen(action)))
 		ft_putstr_fd("has taken a fork\n", 1);
-	else if(!ft_strncmp(action, "DIE", ft_strlen(action)))
-		ft_putstr_fd("died\n", 1);
 	else
 		ft_putstr_fd("test string!\n", 1);
-	pthread_mutex_unlock(mtx);
+	pthread_mutex_unlock(&seat->table->write_mutex);
 }
