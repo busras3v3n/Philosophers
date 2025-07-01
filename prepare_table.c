@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:43:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/01 13:21:09 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:01:53 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_seat	*new_seat(t_table *table, int id)
 		new->meals_to_eat = table->last_param;
 	new->left_fork = ft_calloc(1, sizeof(pthread_mutex_t));
 	pthread_mutex_init(new->left_fork, NULL);
+	pthread_mutex_init(&new->chairno_mtx, NULL);
 	new->table = table;
 	return (new);
 }

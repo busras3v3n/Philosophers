@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/01 13:21:17 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:04:19 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	*routine(void *void_seat)
 		&& seat->chair_num == seat->table->philo_count))
 		{
 			write_with_mtx(seat, get_time_stamp(seat), "THINK");
-			seat->chair_num = seat->next->chair_num;
+			set_int(&seat->chairno_mtx, &seat->chair_num, read_int(&seat->next->chairno_mtx, &seat->next->chair_num));
 			philo_pause(seat->table->time_to_eat, seat->table->philo_count);
 		}
 		else
@@ -52,7 +52,7 @@ void	*routine(void *void_seat)
 			pthread_mutex_unlock(seat->right_fork);
 			write_with_mtx(seat, get_time_stamp(seat), "SLEEP");
 			philo_pause(seat->table->time_to_sleep, seat->table->philo_count);
-			seat->chair_num = seat->next->chair_num;
+			set_int(&seat->chairno_mtx, &seat->chair_num, read_int(&seat->next->chairno_mtx, &seat->next->chair_num));
 		}
 	}
 	return (NULL);
@@ -128,6 +128,7 @@ void	init_data(t_table *table, char **argv, int argc)
 	pthread_mutex_init(&table->table_mutex, NULL);
 	pthread_mutex_init(&table->write_mutex, NULL);
 	pthread_mutex_init(&table->eat_mtx, NULL);
+	pthread_mutex_init(&table->chairno_mtx, NULL);
 	table->waiter = ft_calloc(1, sizeof(pthread_t));
 	table->philo_arr = ft_calloc(table->philo_count, sizeof(t_seat *));
 	prepare_table(table);
