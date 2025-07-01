@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/01 13:03:35 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/01 13:21:14 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	    set_longlong(pthread_mutex_t *mtx, unsigned long long *i, unsigned long
 void	    ft_putnbr_fd(unsigned long long n, int fd);
 int	        ft_strncmp(const char *s1, const char *s2, size_t n);
 void	write_with_mtx(t_seat *seat, long long timestamp, char *action);
-unsigned long long	get_time_stamp(unsigned long long start_time);
+unsigned long long	get_time_stamp(t_seat *seat);
 void    philo_pause(unsigned long long time, int philo_count);
 void	write_death(t_seat *seat, long long timestamp);
 
