@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/01 14:04:19 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:06:54 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	invite_philosophers(t_table *table)
 		seats = seats->next;
 		i++;
 	}
+	pthread_join(*(table->waiter), NULL);
 }
 
 void	init_data(t_table *table, char **argv, int argc)
