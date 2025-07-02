@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   routine_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 08:44:29 by busra             #+#    #+#             */
-/*   Updated: 2025/07/01 13:38:00 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/02 08:07:04 by busra            ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "philosophers.h"
 
@@ -20,8 +20,12 @@ void    philo_pause(unsigned long long time, int philo_count)
 
     start_time = get_current_time();
     target_time = start_time + time;
-    (void)philo_count;
-    sleep_duration = 100;
+    if(philo_count <= 40)
+        sleep_duration = 10000;
+    else if(philo_count <= 100)
+        sleep_duration = 100000;
+    else
+        sleep_duration = 500000;
     while(get_current_time() < target_time)
     {
         if(usleep(sleep_duration))
