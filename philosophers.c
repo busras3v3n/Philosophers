@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/02 11:14:02 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/03 17:51:58 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -73,6 +73,8 @@ void	*waiter(void *void_table)
 	br = 0;
 	while(read_int(&table->table_mutex, &table->wait) == 0)
 		;
+	while(read_int(&table->table_mutex, &table->i) != table->philo_count)
+		;
 	while(1)
 	{
 		i = 0;
@@ -100,13 +102,13 @@ void	invite_philosophers(t_table *table)
 
 	seats = *(table->seats);
 	i = 1;
-	while(i <= table->philo_count)
+	pthread_create(table->waiter, NULL, waiter, table);
+	while(read_int(&table->table_mutex, &table->i) <= table->philo_count)
 	{
 		pthread_create(seats->philosopher, NULL, routine, seats);
 		seats = seats->next;
-		i++;
+		set_int(&table->table_mutex, &table->i, table->i + 1);
 	}
-	pthread_create(table->waiter, NULL, waiter, table);
 	i = 1;
 	seats = *(table->seats);
 	set_longlong(&table->stop_mutex, &table->start_time, get_current_time());
