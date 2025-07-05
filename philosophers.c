@@ -6,18 +6,45 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/03 17:51:58 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/05 06:21:38 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "philosophers.h"
 
+void	think_routine(t_seat *seat)
+{
+	write_with_mtx(seat, get_time_stamp(seat), "THINK");
+	if(seat->chair_num == seat->table->philo_count)
+		seat->chair_num = 1;
+	else
+		seat->chair_num++;
+	philo_pause(seat->table->time_to_eat, seat->table->philo_count);	
+}
+void	eat_sleep_routine(t_seat *seat)
+{
+	pthread_mutex_lock(seat->left_fork);
+	write_with_mtx(seat, get_time_stamp(seat), "FORK");
+	pthread_mutex_lock(seat->right_fork);
+	write_with_mtx(seat, get_time_stamp(seat), "FORK");
+	write_with_mtx(seat, get_time_stamp(seat), "EAT");
+	philo_pause(seat->table->time_to_eat, seat->table->philo_count);
+	pthread_mutex_unlock(seat->left_fork);
+	pthread_mutex_unlock(seat->right_fork);
+	set_longlong(&seat->table->eat_mtx, &seat->last_eaten, get_current_time());
+	write_with_mtx(seat, get_time_stamp(seat), "SLEEP");
+	philo_pause(seat->table->time_to_sleep, seat->table->philo_count);
+	if	(seat->chair_num == seat->table->philo_count)
+		seat->chair_num = 1;
+	else
+		seat->chair_num++;	
+}
 unsigned long long time_since_eaten(t_seat *seat)
 {
 	pthread_mutex_t *read_mtx;
 
 	read_mtx = &seat->table->eat_mtx;
-	return(get_current_time() - read_long(read_mtx, &seat->last_eaten));
+	return (get_current_time() - read_long(read_mtx, &seat->last_eaten));
 }
 
 void	*routine(void *void_seat)
@@ -32,33 +59,14 @@ void	*routine(void *void_seat)
 		;
 	while(!read_int(&seat->table->table_mutex, &seat->table->death))
 	{
-		if(seat->chair_num % 2 == 0 || (seat->table->philo_count % 2 == 1 && seat->chair_num == seat->table->philo_count))
+		if(seat->chair_num % 2 == 0 || 
+		(seat->table->philo_count % 2 == 1 
+		&& seat->chair_num == seat->table->philo_count))
 		{
-			write_with_mtx(seat, get_time_stamp(seat), "THINK");
-			if(seat->chair_num == seat->table->philo_count)
-				seat->chair_num = 1;
-			else
-				seat->chair_num++;
-			philo_pause(seat->table->time_to_eat, seat->table->philo_count);
+			think_routine(seat);
 		}
 		else
-		{
-			pthread_mutex_lock(seat->left_fork);
-			write_with_mtx(seat, get_time_stamp(seat), "FORK");
-			pthread_mutex_lock(seat->right_fork);
-			write_with_mtx(seat, get_time_stamp(seat), "FORK");
-			write_with_mtx(seat, get_time_stamp(seat), "EAT");
-			philo_pause(seat->table->time_to_eat, seat->table->philo_count);
-			pthread_mutex_unlock(seat->left_fork);
-			pthread_mutex_unlock(seat->right_fork);
-			set_longlong(eat_mtx, &seat->last_eaten, get_current_time());
-			write_with_mtx(seat, get_time_stamp(seat), "SLEEP");
-			philo_pause(seat->table->time_to_sleep, seat->table->philo_count);
-			if(seat->chair_num == seat->table->philo_count)
-				seat->chair_num = 1;
-			else
-				seat->chair_num++;
-		}
+			eat_sleep_routine(seat);
 	}
 	return (NULL);
 }
