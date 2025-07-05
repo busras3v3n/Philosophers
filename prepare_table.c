@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   prepare_table.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
+/*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:43:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/01 14:01:53 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/05 12:21:29 by busra            ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "philosophers.h"
 
@@ -75,7 +75,8 @@ void	prepare_table(t_table *table)
 	tmp = *(table->seats);
 	while(i < table->philo_count)
 	{
-		tmp->right_fork = tmp->prev->left_fork;
+		if(tmp->prev)
+			tmp->right_fork = tmp->prev->left_fork;
 		table->philo_arr[i] = (void *)tmp;
 		i++;
 		tmp = tmp->next;

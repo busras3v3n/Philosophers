@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/05 12:11:55 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/05 12:28:02 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -38,9 +38,9 @@ void	think_routine(t_seat *seat)
 }
 void	eat_sleep_routine(t_seat *seat)
 {
-	pthread_mutex_lock(get_smaller_fork(seat));
+	pthread_mutex_lock(seat->left_fork);
 	write_with_mtx(seat, get_time_stamp(seat), "FORK");
-	pthread_mutex_lock(get_bigger_fork(seat));
+	pthread_mutex_lock(seat->right_fork);
 	write_with_mtx(seat, get_time_stamp(seat), "FORK");
 	write_with_mtx(seat, get_time_stamp(seat), "EAT");
 	philo_pause(seat->table->time_to_eat, seat->table->philo_count);
@@ -73,9 +73,7 @@ void	*routine(void *void_seat)
 		;
 	while(!read_int(&seat->table->table_mutex, &seat->table->death))
 	{
-		if(seat->chair_num % 2 == 0 || 
-		(seat->table->philo_count % 2 == 1 
-		&& seat->chair_num == seat->table->philo_count))
+		if(seat->chair_num % 2 == 0 || (seat->table->philo_count % 2 == 1 && seat->chair_num == seat->table->philo_count))
 		{
 			think_routine(seat);
 		}
