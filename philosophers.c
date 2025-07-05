@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/05 11:03:45 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/05 11:44:56 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -65,11 +65,10 @@ unsigned long long time_since_eaten(t_seat *seat)
 void	*routine(void *void_seat)
 {
 	t_seat *seat;
-	pthread_mutex_t *eat_mtx;
 
 	seat = void_seat;
-	eat_mtx = &seat->table->eat_mtx;
-	set_longlong(eat_mtx, &seat->last_eaten, get_current_time());
+	set_longlong(&seat->table->eat_mtx, &seat->last_eaten, get_current_time());
+	set_int(&seat->table->fs_mtx, &seat->table->i, read_int(&seat->table->fs_mtx, &seat->table->i) + 1);
 	while(read_int(&seat->table->table_mutex, &seat->table->wait) == 0)
 		;
 	while(!read_int(&seat->table->table_mutex, &seat->table->death))
@@ -96,7 +95,7 @@ void	*waiter(void *void_table)
 	br = 0;
 	while(read_int(&table->table_mutex, &table->wait) == 0)
 		;
-	while(read_int(&table->table_mutex, &table->i) != table->philo_count)
+	while(read_int(&table->fs_mtx, &table->i) < table->philo_count)
 		;
 	while(1)
 	{
@@ -126,11 +125,11 @@ void	invite_philosophers(t_table *table)
 	seats = *(table->seats);
 	i = 1;
 	pthread_create(table->waiter, NULL, waiter, table);
-	while(read_int(&table->table_mutex, &table->i) <= table->philo_count)
+	while(i <= table->philo_count)
 	{
 		pthread_create(seats->philosopher, NULL, routine, seats);
 		seats = seats->next;
-		set_int(&table->table_mutex, &table->i, table->i + 1);
+		i++;
 	}
 	i = 1;
 	seats = *(table->seats);
@@ -159,7 +158,7 @@ void	init_data(t_table *table, char **argv, int argc)
 	pthread_mutex_init(&table->table_mutex, NULL);
 	pthread_mutex_init(&table->write_mutex, NULL);
 	pthread_mutex_init(&table->eat_mtx, NULL);
-	pthread_mutex_init(&table->chairno_mtx, NULL);
+	pthread_mutex_init(&table->fs_mtx, NULL);
 	table->waiter = ft_calloc(1, sizeof(pthread_t));
 	table->philo_arr = ft_calloc(table->philo_count, sizeof(t_seat *));
 	prepare_table(table);

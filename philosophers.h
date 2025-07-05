@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/03 17:49:51 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/05 11:42:34 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -40,7 +40,7 @@ typedef struct  s_table
     pthread_mutex_t stop_mutex;
     pthread_mutex_t write_mutex;
     pthread_mutex_t eat_mtx;
-    pthread_mutex_t chairno_mtx;
+    pthread_mutex_t fs_mtx;
 	unsigned long long	    cur_time;
     int             wait;
     int             i;
