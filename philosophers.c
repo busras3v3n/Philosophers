@@ -6,12 +6,27 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/05 06:21:38 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/05 11:03:45 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "philosophers.h"
 
+pthread_mutex_t	*get_bigger_fork(t_seat *seat)
+{
+	if(seat->left_fork >= seat->right_fork)
+		return (seat->left_fork);
+	else
+		return(seat->right_fork);
+}
+
+pthread_mutex_t	*get_smaller_fork(t_seat *seat)
+{
+	if(seat->left_fork < seat->right_fork)
+		return (seat->left_fork);
+	else
+		return(seat->right_fork);
+}
 void	think_routine(t_seat *seat)
 {
 	write_with_mtx(seat, get_time_stamp(seat), "THINK");
@@ -23,9 +38,9 @@ void	think_routine(t_seat *seat)
 }
 void	eat_sleep_routine(t_seat *seat)
 {
-	pthread_mutex_lock(seat->left_fork);
+	pthread_mutex_lock(get_smaller_fork(seat));
 	write_with_mtx(seat, get_time_stamp(seat), "FORK");
-	pthread_mutex_lock(seat->right_fork);
+	pthread_mutex_lock(get_bigger_fork(seat));
 	write_with_mtx(seat, get_time_stamp(seat), "FORK");
 	write_with_mtx(seat, get_time_stamp(seat), "EAT");
 	philo_pause(seat->table->time_to_eat, seat->table->philo_count);
