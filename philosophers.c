@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/05 11:44:56 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/05 12:11:01 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -44,9 +44,9 @@ void	eat_sleep_routine(t_seat *seat)
 	write_with_mtx(seat, get_time_stamp(seat), "FORK");
 	write_with_mtx(seat, get_time_stamp(seat), "EAT");
 	philo_pause(seat->table->time_to_eat, seat->table->philo_count);
+	set_longlong(&seat->table->eat_mtx, &seat->last_eaten, get_current_time());
 	pthread_mutex_unlock(seat->left_fork);
 	pthread_mutex_unlock(seat->right_fork);
-	set_longlong(&seat->table->eat_mtx, &seat->last_eaten, get_current_time());
 	write_with_mtx(seat, get_time_stamp(seat), "SLEEP");
 	philo_pause(seat->table->time_to_sleep, seat->table->philo_count);
 	if	(seat->chair_num == seat->table->philo_count)
@@ -103,7 +103,7 @@ void	*waiter(void *void_table)
 		while(i < table->philo_count)
 		{
 			seat = table->philo_arr[i];
-			if(time_since_eaten(seat) >= (unsigned long long)(table->time_to_die * 1000))
+			if(time_since_eaten(seat) >= (((unsigned long long)table->time_to_die)))
 			{
 				set_int(&table->table_mutex, &table->death, 1);
 				write_death(seat, get_time_stamp(*(table->seats)));
@@ -111,6 +111,7 @@ void	*waiter(void *void_table)
 				break ;
 			}
 			i++;
+			usleep(1000);
 		}
 		if(br == 1)
 			break ;
