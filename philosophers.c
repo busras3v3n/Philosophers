@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 09:52:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/05 13:02:29 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/06 10:43:31 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -66,14 +66,35 @@ unsigned long long time_since_eaten(t_seat *seat)
 	read_mtx = &seat->table->eat_mtx;
 	return (get_current_time() - read_long(read_mtx, &seat->last_eaten));
 }
+int	check_philo_death(t_table *table)
+{
+	int	i;
+	t_seat *seat;
+
+	i = 0;
+	while(i < table->philo_count)
+	{
+		seat = table->philo_arr[i];
+		if(time_since_eaten(seat) >= (((unsigned long long)table->time_to_die)))
+		{
+			set_int(&table->table_mutex, &table->death, 1);
+			write_death(seat, get_time_stamp(*(table->seats)));
+			return(1);
+		}
+		i++;
+	}
+	return (0);
+}
 
 void	*routine(void *void_seat)
 {
 	t_seat *seat;
+	int		i;
 
 	seat = void_seat;
 	set_longlong(&seat->table->eat_mtx, &seat->last_eaten, get_current_time());
-	set_int(&seat->table->fs_mtx, &seat->table->i, read_int(&seat->table->fs_mtx, &seat->table->i) + 1);
+	i = read_int(&seat->table->fs_mtx, &seat->table->i);
+	set_int(&seat->table->fs_mtx, &seat->table->i, i + 1);
 	while(read_int(&seat->table->table_mutex, &seat->table->wait) == 0)
 		;
 	while(!read_int(&seat->table->table_mutex, &seat->table->death))
@@ -90,32 +111,15 @@ void	*routine(void *void_seat)
 void	*waiter(void *void_table)
 {
 	t_table	*table;
-	t_seat	*seat;
-	int		i;
-	int		br;
 
 	table = void_table;
-	br = 0;
 	while(read_int(&table->table_mutex, &table->wait) == 0)
 		;
 	while(read_int(&table->fs_mtx, &table->i) < table->philo_count)
 		;
 	while(1)
 	{
-		i = 0;
-		while(i < table->philo_count)
-		{
-			seat = table->philo_arr[i];
-			if(time_since_eaten(seat) >= (((unsigned long long)table->time_to_die)))
-			{
-				set_int(&table->table_mutex, &table->death, 1);
-				write_death(seat, get_time_stamp(*(table->seats)));
-				br = 1;
-				break ;
-			}
-			i++;
-		}
-		if(br == 1)
+		if(check_philo_death(table))
 			break ;
 	}
 	return (NULL);
