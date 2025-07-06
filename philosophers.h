@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/05 11:42:34 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/06 10:48:34 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -88,5 +88,8 @@ void	write_with_mtx(t_seat *seat, long long timestamp, char *action);
 unsigned long long	get_time_stamp(t_seat *seat);
 void    philo_pause(unsigned long long time, int philo_count);
 void	write_death(t_seat *seat, long long timestamp);
+unsigned long long time_since_eaten(t_seat *seat);
+void	*waiter(void *void_table);
+void	*routine(void *void_seat);
 
 #endif
