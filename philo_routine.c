@@ -6,7 +6,7 @@
 /*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 10:45:56 by busra             #+#    #+#             */
-/*   Updated: 2025/07/06 10:46:53 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/07 16:25:22 by busra            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -34,6 +34,7 @@ void	think_routine(t_seat *seat)
 		seat->chair_num = 1;
 	else
 		seat->chair_num++;
+	philo_pause((seat->table->time_to_eat * 2) - seat->table->time_to_sleep, seat->table->philo_count);
 }
 void	eat_sleep_routine(t_seat *seat)
 {
