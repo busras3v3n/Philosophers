@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/10 17:54:44 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:59:17 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_seat
 	int				meals_to_eat;
     int             meals_eaten;
     int             last_philo;
+    unsigned long long start_time;
     pthread_t       *philosopher;
     pthread_mutex_t *left_fork;
     pthread_mutex_t *right_fork;
@@ -82,7 +83,7 @@ unsigned long long   read_long(pthread_mutex_t *mtx, unsigned long long *l);
 void	    set_longlong(pthread_mutex_t *mtx, unsigned long long *i, unsigned long long set);
 void	    ft_putnbr_fd(unsigned long long n, int fd);
 int	        ft_strncmp(const char *s1, const char *s2, size_t n);
-void	write_with_mtx(t_seat *seat, long long timestamp, char *action);
+void	write_with_mtx(t_seat *seat, char *action);
 unsigned long long	get_time_stamp(t_seat *seat);
 void    philo_pause(unsigned long long time, int philo_count);
 void	write_death(t_seat *seat, long long timestamp);

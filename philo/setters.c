@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:56:05 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/10 17:56:09 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:59:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,11 @@ void	write_death(t_seat *seat, long long timestamp)
 	ft_putstr_fd("died\n", 1);
 	pthread_mutex_unlock(seat->table->write_mutex);
 }
-void	write_with_mtx(t_seat *seat, long long timestamp, char *action)
+void	write_with_mtx(t_seat *seat, char *action)
 {
 	if(read_int(seat->table->death_mutex, &seat->table->death))
 		return ;
 	pthread_mutex_lock(seat->table->write_mutex);
-	ft_putnbr_fd(timestamp, 1);
-	ft_putstr_fd(" ", 1);
-	ft_putnbr_fd((long long)seat->num, 1);
-	ft_putstr_fd(" ", 1);
-	if(!ft_strncmp(action, "SLEEP", ft_strlen(action)))
-		ft_putstr_fd("is sleeping\n", 1);
-	else if(!ft_strncmp(action, "THINK", ft_strlen(action)))
-		ft_putstr_fd("is thinking\n", 1);
-	else if(!ft_strncmp(action, "EAT", ft_strlen(action)))
-		ft_putstr_fd("is eating\n", 1);
-	else if(!ft_strncmp(action, "FORK", ft_strlen(action)))
-		ft_putstr_fd("has taken a fork\n", 1);
-	else
-		ft_putstr_fd("test string!\n", 1);
+	printf("%lld %d %s\n", get_current_time() - seat->start_time, seat->num, action);
 	pthread_mutex_unlock(seat->table->write_mutex);
 }

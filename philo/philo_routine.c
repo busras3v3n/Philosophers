@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:53:30 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/10 18:38:53 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:59:31 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ pthread_mutex_t	*get_smaller_fork(t_seat *seat)
 }
 void	think_routine(t_seat *seat)
 {
-	write_with_mtx(seat, get_time_stamp(seat), "THINK");
+	write_with_mtx(seat, "is thinking");
 	if(seat->chair_num == seat->table->philo_count)
 		seat->chair_num = 1;
 	else
@@ -38,15 +38,15 @@ void	think_routine(t_seat *seat)
 void	eat_sleep_routine(t_seat *seat)
 {
 	pthread_mutex_lock(seat->left_fork);
-	write_with_mtx(seat, get_time_stamp(seat), "FORK");
+	write_with_mtx(seat, "has taken a fork");
 	pthread_mutex_lock(seat->right_fork);
-	write_with_mtx(seat, get_time_stamp(seat), "FORK");
-	write_with_mtx(seat, get_time_stamp(seat), "EAT");
-	philo_pause(seat->table->time_to_eat, seat->table->philo_count);
+	write_with_mtx(seat, "has taken a fork");
 	set_longlong(seat->eat_mtx, &seat->last_eaten, get_current_time());
+	write_with_mtx(seat, "is eating");
+	philo_pause(seat->table->time_to_eat, seat->table->philo_count);
 	pthread_mutex_unlock(seat->left_fork);
 	pthread_mutex_unlock(seat->right_fork);
-	write_with_mtx(seat, get_time_stamp(seat), "SLEEP");
+	write_with_mtx(seat, "is sleeping");
 	philo_pause(seat->table->time_to_sleep, seat->table->philo_count);
 	if	(seat->chair_num == seat->table->philo_count)
 		seat->chair_num = 1;
