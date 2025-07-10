@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 10:45:56 by busra             #+#    #+#             */
-/*   Updated: 2025/07/10 14:47:48 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:41:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,16 @@ void	think_routine(t_seat *seat)
 		seat->chair_num = 1;
 	else
 		seat->chair_num++;
-	philo_pause(1, seat->table->philo_count);
 }
 void	eat_sleep_routine(t_seat *seat)
 {
-	pthread_mutex_lock(get_smaller_fork(seat));
+	pthread_mutex_lock(seat->left_fork);
 	write_with_mtx(seat, get_time_stamp(seat), "FORK");
-	pthread_mutex_lock(get_bigger_fork(seat));
+	pthread_mutex_lock(seat->right_fork);
 	write_with_mtx(seat, get_time_stamp(seat), "FORK");
 	write_with_mtx(seat, get_time_stamp(seat), "EAT");
 	philo_pause(seat->table->time_to_eat, seat->table->philo_count);
-	set_longlong(seat->table->eat_mtx, &seat->last_eaten, get_current_time());
+	set_longlong(seat->eat_mtx, &seat->last_eaten, get_current_time());
 	pthread_mutex_unlock(seat->left_fork);
 	pthread_mutex_unlock(seat->right_fork);
 	write_with_mtx(seat, get_time_stamp(seat), "SLEEP");
@@ -58,17 +57,15 @@ void	eat_sleep_routine(t_seat *seat)
 void	*routine(void *void_seat)
 {
 	t_seat *seat;
-	int		i;
 
 	seat = void_seat;
-	set_longlong(seat->table->eat_mtx, &seat->last_eaten, get_current_time());
-	i = read_int(seat->table->fs_mtx, &seat->table->i);
-	set_int(seat->table->fs_mtx, &seat->table->i, i + 1);
-	while(read_int(seat->table->table_mutex, &seat->table->wait) == 0)
+	while(read_int(seat->table->wait_mutex, &seat->table->wait) == 0)
 		;
-	while(!read_int(seat->table->table_mutex, &seat->table->death))
+	if(seat->chair_num % 2 == 0 || seat->chair_num == seat->table->philo_count)
+		usleep(100);
+	while(!read_int(seat->table->death_mutex, &seat->table->death))
 	{
-		if(seat->chair_num % 2 == 0 || seat->chair_num == seat->table->philo_count)
+		if((seat->chair_num % 2 == 0 && (seat->table->philo_count != 1 && seat->chair_num == seat->table->philo_count)))
 		{
 			think_routine(seat);
 		}

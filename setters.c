@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:30:54 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/10 14:34:23 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:36:15 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	write_death(t_seat *seat, long long timestamp)
 }
 void	write_with_mtx(t_seat *seat, long long timestamp, char *action)
 {
-	if(read_int(seat->table->table_mutex, &seat->table->death))
+	if(read_int(seat->table->death_mutex, &seat->table->death))
 		return ;
 	pthread_mutex_lock(seat->table->write_mutex);
 	ft_putnbr_fd(timestamp, 1);

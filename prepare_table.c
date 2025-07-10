@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   prepare_table.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:43:35 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/07 16:21:05 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/10 17:41:24 by busseven         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "philosophers.h"
 
@@ -32,8 +32,9 @@ t_seat	*new_seat(t_table *table, int id)
 	if (table->has_last_param)
 		new->meals_to_eat = table->last_param;
 	new->left_fork = ft_calloc(1, sizeof(pthread_mutex_t));
+	new->eat_mtx = ft_calloc(1, sizeof(pthread_mutex_t));
 	pthread_mutex_init(new->left_fork, NULL);
-	pthread_mutex_init(&new->chairno_mtx, NULL);
+	pthread_mutex_init(new->eat_mtx, NULL);
 	new->table = table;
 	return (new);
 }

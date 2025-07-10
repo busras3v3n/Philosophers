@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/10 14:30:55 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:44:28 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,9 @@ typedef struct  s_table
 	int			    has_last_param;
     int             time_stamp;
     int             all_threads_ready;
-    pthread_mutex_t *table_mutex;
-    pthread_mutex_t *stop_mutex;
+    pthread_mutex_t *death_mutex;
+    pthread_mutex_t *wait_mutex;
     pthread_mutex_t *write_mutex;
-    pthread_mutex_t *eat_mtx;
-    pthread_mutex_t *fs_mtx;
 	unsigned long long	    cur_time;
     int             wait;
     int             i;
@@ -62,7 +60,7 @@ typedef struct s_seat
 	struct s_seat	*prev;  
 	struct s_seat	*next;
     t_table         *table;
-    pthread_mutex_t chairno_mtx;
+    pthread_mutex_t *eat_mtx;
 }	t_seat;
 
 void	    ft_putendl_fd(char *s, int fd);
