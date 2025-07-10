@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 10:45:56 by busra             #+#    #+#             */
-/*   Updated: 2025/07/07 16:25:22 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/10 14:17:32 by busseven         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "philosophers.h"
 
@@ -38,15 +38,9 @@ void	think_routine(t_seat *seat)
 }
 void	eat_sleep_routine(t_seat *seat)
 {
-	if(seat->num == 1)
-		pthread_mutex_lock(get_smaller_fork(seat));
-	else
-		pthread_mutex_lock(get_bigger_fork(seat));
+	pthread_mutex_lock(get_smaller_fork(seat));
 	write_with_mtx(seat, get_time_stamp(seat), "FORK");
-	if(seat->num == 1)
-		pthread_mutex_lock(get_bigger_fork(seat));
-	else
-		pthread_mutex_lock(get_smaller_fork(seat));
+	pthread_mutex_lock(get_bigger_fork(seat));
 	write_with_mtx(seat, get_time_stamp(seat), "FORK");
 	write_with_mtx(seat, get_time_stamp(seat), "EAT");
 	philo_pause(seat->table->time_to_eat, seat->table->philo_count);
