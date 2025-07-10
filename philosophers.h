@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 20:01:08 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/07 16:21:15 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/10 14:30:55 by busseven         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -30,17 +30,17 @@ typedef struct  s_table
 	int			    philo_count;
 	unsigned long long		start_time;
     int			    time_to_eat;
-    int			    time_to_die;
+    unsigned long long			    time_to_die;
     int			    time_to_sleep;
     int			    last_param;
 	int			    has_last_param;
     int             time_stamp;
     int             all_threads_ready;
-    pthread_mutex_t table_mutex;
-    pthread_mutex_t stop_mutex;
-    pthread_mutex_t write_mutex;
-    pthread_mutex_t eat_mtx;
-    pthread_mutex_t fs_mtx;
+    pthread_mutex_t *table_mutex;
+    pthread_mutex_t *stop_mutex;
+    pthread_mutex_t *write_mutex;
+    pthread_mutex_t *eat_mtx;
+    pthread_mutex_t *fs_mtx;
 	unsigned long long	    cur_time;
     int             wait;
     int             i;

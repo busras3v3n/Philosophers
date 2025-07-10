@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   waiter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: busra <busseven@student.42.fr>             +#+  +:+       +#+        */
+/*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 10:47:56 by busra             #+#    #+#             */
-/*   Updated: 2025/07/06 10:49:25 by busra            ###   ########.fr       */
+/*   Updated: 2025/07/10 14:33:02 by busseven         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "philosophers.h"
 
@@ -21,9 +21,9 @@ int	check_philo_death(t_table *table)
 	while(i < table->philo_count)
 	{
 		seat = table->philo_arr[i];
-		if(time_since_eaten(seat) >= (((unsigned long long)table->time_to_die)))
+		if(time_since_eaten(seat) >= table->time_to_die)
 		{
-			set_int(&table->table_mutex, &table->death, 1);
+			set_int(table->table_mutex, &table->death, 1);
 			write_death(seat, get_time_stamp(*(table->seats)));
 			return(1);
 		}
@@ -37,9 +37,9 @@ void	*waiter(void *void_table)
 	t_table	*table;
 
 	table = void_table;
-	while(read_int(&table->table_mutex, &table->wait) == 0)
+	while(read_int(table->table_mutex, &table->wait) == 0)
 		;
-	while(read_int(&table->fs_mtx, &table->i) < table->philo_count)
+	while(read_int(table->fs_mtx, &table->i) < table->philo_count)
 		;
 	while(1)
 	{

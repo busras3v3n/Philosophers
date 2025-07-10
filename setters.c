@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:30:54 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/01 13:22:48 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/10 14:34:23 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,19 @@ unsigned long long read_long(pthread_mutex_t *mtx, unsigned long long *l)
 }
 void	write_death(t_seat *seat, long long timestamp)
 {
-	pthread_mutex_lock(&seat->table->write_mutex);
+	pthread_mutex_lock(seat->table->write_mutex);
 	ft_putnbr_fd(timestamp, 1);
 	ft_putstr_fd(" ", 1);
 	ft_putnbr_fd((long long)seat->num, 1);
 	ft_putstr_fd(" ", 1);
 	ft_putstr_fd("died\n", 1);
-	pthread_mutex_unlock(&seat->table->write_mutex);
+	pthread_mutex_unlock(seat->table->write_mutex);
 }
 void	write_with_mtx(t_seat *seat, long long timestamp, char *action)
 {
-	if(read_int(&seat->table->table_mutex, &seat->table->death))
+	if(read_int(seat->table->table_mutex, &seat->table->death))
 		return ;
-	pthread_mutex_lock(&seat->table->write_mutex);
+	pthread_mutex_lock(seat->table->write_mutex);
 	ft_putnbr_fd(timestamp, 1);
 	ft_putstr_fd(" ", 1);
 	ft_putnbr_fd((long long)seat->num, 1);
@@ -71,5 +71,5 @@ void	write_with_mtx(t_seat *seat, long long timestamp, char *action)
 		ft_putstr_fd("has taken a fork\n", 1);
 	else
 		ft_putstr_fd("test string!\n", 1);
-	pthread_mutex_unlock(&seat->table->write_mutex);
+	pthread_mutex_unlock(seat->table->write_mutex);
 }
