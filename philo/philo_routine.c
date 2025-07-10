@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/06 10:45:56 by busra             #+#    #+#             */
-/*   Updated: 2025/07/10 17:41:42 by busseven         ###   ########.fr       */
+/*   Created: 2025/07/10 17:53:30 by busseven          #+#    #+#             */
+/*   Updated: 2025/07/10 17:53:58 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	*routine(void *void_seat)
 	while(read_int(seat->table->wait_mutex, &seat->table->wait) == 0)
 		;
 	if(seat->chair_num % 2 == 0 || seat->chair_num == seat->table->philo_count)
-		usleep(100);
+		philo_pause(10, seat->table->philo_count);
 	while(!read_int(seat->table->death_mutex, &seat->table->death))
 	{
 		if((seat->chair_num % 2 == 0 && (seat->table->philo_count != 1 && seat->chair_num == seat->table->philo_count)))
