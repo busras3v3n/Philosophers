@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:53:30 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/10 17:53:58 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:38:53 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ void	*routine(void *void_seat)
 	seat = void_seat;
 	while(read_int(seat->table->wait_mutex, &seat->table->wait) == 0)
 		;
-	if(seat->chair_num % 2 == 0 || seat->chair_num == seat->table->philo_count)
+	if(seat->chair_num % 2 != 0 && seat->chair_num != seat->table->philo_count)
 		philo_pause(10, seat->table->philo_count);
 	while(!read_int(seat->table->death_mutex, &seat->table->death))
 	{
-		if((seat->chair_num % 2 == 0 && (seat->table->philo_count != 1 && seat->chair_num == seat->table->philo_count)))
+		if((seat->chair_num % 2 == 0 || (seat->table->philo_count != 1 && seat->chair_num == seat->table->philo_count)))
 		{
 			think_routine(seat);
 		}

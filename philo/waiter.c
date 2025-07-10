@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:56:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/10 17:56:41 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:24:36 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	*waiter(void *void_table)
 	t_table	*table;
 
 	table = void_table;
-	while(read_int(table->wait_mutex, &table->wait) == 0)
-	 	;
 	while(1)
 	{
 		if(check_philo_death(table))

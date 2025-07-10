@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:11 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/10 17:54:26 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:24:30 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void	invite_philosophers(t_table *table)
 	table->start_time = get_current_time();
 	while(i <= table->philo_count)
 	{
-		set_longlong(seats->eat_mtx, &seats->last_eaten, get_current_time());
+		set_longlong(seats->eat_mtx, &seats->last_eaten, table->start_time);
 		pthread_create(seats->philosopher, NULL, routine, seats);
 		seats = seats->next;
 		i++;
 	}
-	i = 1;
-	seats = *(table->seats);
 	set_int(table->wait_mutex, &(table->wait), 1);
 	pthread_create(table->waiter, NULL, waiter, table);
+	i = 1;
+	seats = *(table->seats);
 	while(i <= table->philo_count)
 	{
 		pthread_join(*(seats->philosopher), NULL);
