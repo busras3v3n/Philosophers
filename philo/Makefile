@@ -6,7 +6,7 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/10 17:50:29 by busseven          #+#    #+#              #
-#    Updated: 2025/07/12 15:21:04 by busseven         ###   ########.fr        #
+#    Updated: 2025/07/12 15:38:57 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ prepare_table.c get_time.c ft_atoi.c setters.c routine_utils.c philo_routine.c w
 print_msg.c
 OBJS = $(SRCS:.c=.o)
 CC = gcc
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g -fsanitize=leak -Wall -Wextra -Werror
 NAME = philosophers
 
 all: $(NAME)
