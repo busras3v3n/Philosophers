@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:55:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/10 17:55:15 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/12 12:39:09 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_seat	*new_seat(t_table *table, int id)
 	pthread_mutex_init(new->left_fork, NULL);
 	pthread_mutex_init(new->eat_mtx, NULL);
 	new->table = table;
+	new->has_opt_param = table->has_last_param;
 	return (new);
 }
 

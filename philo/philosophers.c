@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:11 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/10 18:58:00 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/12 12:38:22 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	init_data(t_table *table, char **argv, int argc)
 	table->time_to_die	= ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
 	table->time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 5)
+	if (argc == 6)
 	{
 		table->has_last_param = 1;
 		table->last_param = ft_atoi(argv[5]);
@@ -55,9 +55,11 @@ void	init_data(t_table *table, char **argv, int argc)
 	table->wait_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 	table->death_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 	table->write_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
+	table->full_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 	pthread_mutex_init(table->wait_mutex, NULL);
 	pthread_mutex_init(table->death_mutex, NULL);
 	pthread_mutex_init(table->write_mutex, NULL);
+	pthread_mutex_init(table->full_mutex, NULL);
 	table->waiter = ft_calloc(1, sizeof(pthread_t));
 	table->philo_arr = ft_calloc(table->philo_count, sizeof(t_seat *));
 	prepare_table(table);
@@ -69,9 +71,9 @@ int	main(int argc, char **argv)
 	t_table	*table;
 
 	table = ft_calloc(1, sizeof(t_table));
-	if ((argc != 5 && argc != 4) || !is_valid_input(argv))
+	if ((argc != 6 && argc != 5) || !is_valid_input(argv))
 	{
-		if(argc != 5 && argc != 4)
+		if(argc != 6 && argc != 5)
 			ft_putendl_fd("Invalid format: bad argc", 2);
 		else
 			ft_putendl_fd("Invalid format: non-integer arg(s)", 2);
