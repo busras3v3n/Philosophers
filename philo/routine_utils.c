@@ -6,16 +6,16 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:55:31 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 14:51:00 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:58:22 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	philo_pause(unsigned long long time, int philo_count)
+void	philo_pause(size_t time, int philo_count)
 {
-	unsigned long long	start_time;
-	unsigned long long	target_time;
+	size_t	start_time;
+	size_t	target_time;
 	int					sleep_duration;
 
 	start_time = get_current_time();

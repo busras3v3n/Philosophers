@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:56:22 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 14:53:29 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:58:22 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_putendl_fd(char *s, int fd)
 	write(fd, &a, 1);
 }
 
-void	ft_putnbr_fd(unsigned long long n, int fd)
+void	ft_putnbr_fd(size_t n, int fd)
 {
 	char	c;
 

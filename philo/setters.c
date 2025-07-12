@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:56:05 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 14:53:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:58:22 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	set_int(pthread_mutex_t *mtx, int *i, int set)
 	pthread_mutex_unlock(mtx);
 }
 
-void	set_longlong(pthread_mutex_t *mtx, unsigned long long *i, unsigned long long set)
+void	set_longlong(pthread_mutex_t *mtx, size_t *i, size_t set)
 {
 	pthread_mutex_lock(mtx);
 	*i = set;
@@ -36,9 +36,9 @@ int	read_int(pthread_mutex_t *mtx, int *i)
 	return (val);
 }
 
-unsigned long long	read_long(pthread_mutex_t *mtx, unsigned long long *l)
+size_t	read_long(pthread_mutex_t *mtx, size_t *l)
 {
-	unsigned long long	val;
+	size_t	val;
 
 	pthread_mutex_lock(mtx);
 	val = *l;

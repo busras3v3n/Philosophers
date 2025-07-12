@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 14:51:53 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 14:55:31 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:58:47 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ void	write_with_mtx(t_seat *seat, char *action)
 	if (read_int(seat->table->full_mutex, &seat->table->full) >= seat->table->philo_count)
 		return ;
 	pthread_mutex_lock(seat->table->write_mutex);
-	printf("%lld %d %s\n", get_current_time() - seat->start_time, seat->num, action);
+	printf("%ld %d %s\n", get_current_time() - seat->start_time, seat->num, action);
 	pthread_mutex_unlock(seat->table->write_mutex);
 }

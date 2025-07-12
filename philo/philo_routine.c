@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:53:30 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 12:50:45 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:04:05 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,13 @@ void	eat_sleep_routine(t_seat *seat)
 void	*routine(void *void_seat)
 {
 	t_seat	*seat;
-	int		full_philos;
 
 	seat = void_seat;
 	while (read_int(seat->table->wait_mutex, &seat->table->wait) == 0)
 		;
 	if (seat->chair_num % 2 != 0 && seat->chair_num != seat->table->philo_count)
 		philo_pause(10, seat->table->philo_count);
-	full_philos = read_int(seat->table->full_mutex, &seat->table->full);
-	while (!read_int(seat->table->death_mutex, &seat->table->death)
-		&& full_philos < seat->table->philo_count)
+	while (!read_int(seat->table->death_mutex, &seat->table->death))
 	{
 		if ((seat->chair_num % 2 == 0
 				|| (seat->table->philo_count != 1
