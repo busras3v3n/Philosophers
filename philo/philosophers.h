@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 15:18:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:48:49 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,19 @@ void				wrong_format(void);
 void				*ft_calloc(size_t count, size_t size);
 t_seat				*ft_lastnode(t_seat *seats);
 void				prepare_table(t_table *table);
-size_t	get_current_time(void);
+size_t				get_current_time(void);
 int					ft_atoi(const char *str);
 void				set_int(pthread_mutex_t *mtx, int *i, int set);
 int					read_int(pthread_mutex_t *mtx, int *i);
-size_t	read_long(pthread_mutex_t *mtx, size_t *l);
+size_t				read_long(pthread_mutex_t *mtx, size_t *l);
 void				set_longlong(pthread_mutex_t *mtx, size_t *i, size_t set);
 void				ft_putnbr_fd(size_t n, int fd);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 void				write_with_mtx(t_seat *seat, char *action);
-size_t	get_time_stamp(t_seat *seat);
+size_t				get_time_stamp(t_seat *seat);
 void				philo_pause(size_t time, int philo_count);
 void				write_death(t_seat *seat, long long timestamp);
-size_t	time_since_eaten(t_seat *seat);
+size_t				time_since_eaten(t_seat *seat);
 void				*waiter(void *void_table);
 void				*routine(void *void_seat);
 void				free_data(t_table *table);

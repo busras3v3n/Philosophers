@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:11 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 15:40:35 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:48:34 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	invite_philosophers(t_table *table)
 	}
 	pthread_join(*(table->waiter), NULL);
 }
+
 void	free_data(t_table *table)
 {
 	t_seat	*seat;
@@ -53,7 +54,7 @@ void	free_data(t_table *table)
 	free(table->full_mutex);
 	seat = *(table->seats);
 	i = 0;
-	while(i < table->philo_count)
+	while (i < table->philo_count)
 	{
 		free(seat->left_fork);
 		free(seat->eat_mtx);
@@ -68,6 +69,7 @@ void	free_data(t_table *table)
 	free(table->waiter);
 	free(table);
 }
+
 void	init_data(t_table *table, char **argv, int argc)
 {
 	table->philo_count = ft_atoi(argv[1]);
