@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:52:12 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/10 17:52:48 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/12 12:45:41 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t	ft_strlen(const char *s)
 int	is_valid_input(char **argv)
 {
 	int	i;
-	int n;
+	int	n;
 
 	i = 1;
 	n = 0;
@@ -42,7 +42,8 @@ int	is_valid_input(char **argv)
 	}
 	return (1);
 }
-void	wrong_format()
+
+void	wrong_format(void)
 {
 	ft_putstr_fd("number_of_philosophers ", 2);
 	ft_putstr_fd("time_to_die time_to_eat ", 2);

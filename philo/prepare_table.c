@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:55:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 12:39:09 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/12 13:01:45 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 t_seat	*ft_lastnode(t_seat *seats)
 {
-	if(!seats)
+	if (!seats)
 		return (NULL);
 	while (seats->next != NULL)
 		seats = seats->next;
-	return(seats);
+	return (seats);
 }
 
 t_seat	*new_seat(t_table *table, int id)
@@ -51,33 +51,33 @@ void	add_seat_to_table(t_table *table, t_seat **seats, int id)
 		last = ft_lastnode(*seats);
 		last->next = new_seat(table, id);
 		last->next->prev = last;
-		if(id == table->philo_count)
+		if (id == table->philo_count)
 		{
 			(*seats)->prev = ft_lastnode(*seats);
 			last = ft_lastnode(*seats);
 			last->next = (*seats);
-			last->last_philo = 1;	
+			last->last_philo = 1;
 		}
 	}
 }
 
 void	prepare_table(t_table *table)
 {
-	int	i;
-	t_seat *tmp;
+	int		i;
+	t_seat	*tmp;
 
 	i = 1;
 	table->seats = ft_calloc(table->philo_count, sizeof(t_seat *));
-	while(i <= table->philo_count)
+	while (i <= table->philo_count)
 	{
 		add_seat_to_table(table, table->seats, i);
 		i++;
 	}
 	i = 0;
 	tmp = *(table->seats);
-	while(i < table->philo_count)
+	while (i < table->philo_count)
 	{
-		if(tmp->prev)
+		if (tmp->prev)
 			tmp->right_fork = tmp->prev->left_fork;
 		table->philo_arr[i] = (void *)tmp;
 		i++;

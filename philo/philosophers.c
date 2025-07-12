@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:11 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 12:38:22 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/12 12:51:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	invite_philosophers(t_table *table)
 	seats = *(table->seats);
 	i = 1;
 	table->start_time = get_current_time();
-	while(i <= table->philo_count)
+	while (i <= table->philo_count)
 	{
 		set_longlong(seats->eat_mtx, &seats->last_eaten, table->start_time);
 		set_longlong(seats->eat_mtx, &seats->start_time, table->start_time);
@@ -32,7 +32,7 @@ void	invite_philosophers(t_table *table)
 	pthread_create(table->waiter, NULL, waiter, table);
 	i = 1;
 	seats = *(table->seats);
-	while(i <= table->philo_count)
+	while (i <= table->philo_count)
 	{
 		pthread_join(*(seats->philosopher), NULL);
 		seats = seats->next;
@@ -44,7 +44,7 @@ void	invite_philosophers(t_table *table)
 void	init_data(t_table *table, char **argv, int argc)
 {
 	table->philo_count = ft_atoi(argv[1]);
-	table->time_to_die	= ft_atoi(argv[2]);
+	table->time_to_die = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
 	table->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
@@ -65,7 +65,6 @@ void	init_data(t_table *table, char **argv, int argc)
 	prepare_table(table);
 }
 
-
 int	main(int argc, char **argv)
 {
 	t_table	*table;
@@ -73,7 +72,7 @@ int	main(int argc, char **argv)
 	table = ft_calloc(1, sizeof(t_table));
 	if ((argc != 6 && argc != 5) || !is_valid_input(argv))
 	{
-		if(argc != 6 && argc != 5)
+		if (argc != 6 && argc != 5)
 			ft_putendl_fd("Invalid format: bad argc", 2);
 		else
 			ft_putendl_fd("Invalid format: non-integer arg(s)", 2);
