@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:11 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 12:51:42 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:27:40 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,15 @@ void	invite_philosophers(t_table *table)
 	}
 	pthread_join(*(table->waiter), NULL);
 }
-
+void	free_data(t_table *table)
+{
+	free(table->wait_mutex);
+	free(table->death_mutex);
+	free(table->write_mutex);
+	free(table->full_mutex);
+	free(table->seats);
+	free(table);
+}
 void	init_data(t_table *table, char **argv, int argc)
 {
 	table->philo_count = ft_atoi(argv[1]);
@@ -69,7 +77,6 @@ int	main(int argc, char **argv)
 {
 	t_table	*table;
 
-	table = ft_calloc(1, sizeof(t_table));
 	if ((argc != 6 && argc != 5) || !is_valid_input(argv))
 	{
 		if (argc != 6 && argc != 5)
@@ -77,7 +84,10 @@ int	main(int argc, char **argv)
 		else
 			ft_putendl_fd("Invalid format: non-integer arg(s)", 2);
 		wrong_format();
+		return (0);
 	}
+	table = ft_calloc(1, sizeof(t_table));
 	init_data(table, argv, argc);
 	invite_philosophers(table);
+	free_data(table);
 }

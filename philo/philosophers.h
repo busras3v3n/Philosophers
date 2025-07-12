@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 14:58:22 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:18:43 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ void				write_death(t_seat *seat, long long timestamp);
 size_t	time_since_eaten(t_seat *seat);
 void				*waiter(void *void_table);
 void				*routine(void *void_seat);
+void				free_data(t_table *table);
 
 #endif
