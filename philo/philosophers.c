@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:11 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/18 11:08:40 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/18 11:24:50 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	free_data(t_table *table)
 	t_seat	*tmp;
 	int		i;
 
-	(void)tmp;
 	free(table->wait_mutex);
 	free(table->death_mutex);
 	free(table->write_mutex);

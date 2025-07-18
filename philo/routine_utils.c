@@ -6,13 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:55:31 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/18 10:45:51 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/18 11:25:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	philo_pause(size_t time, int philo_count, t_table *table)
+void	philo_pause(size_t time, t_table *table)
 {
 	size_t	start_time;
 	size_t	target_time;
@@ -20,7 +20,6 @@ void	philo_pause(size_t time, int philo_count, t_table *table)
 
 	start_time = get_current_time();
 	target_time = start_time + time;
-	(void)philo_count;
 	sleep_duration = 100;
 	while (get_current_time() < target_time)
 	{
