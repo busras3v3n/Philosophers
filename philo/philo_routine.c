@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:53:30 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/18 10:53:26 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/18 11:10:30 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,26 @@ void	think_routine(t_seat *seat)
 
 void	eat_sleep_routine(t_seat *seat)
 {
+	t_table	*table;
+
+	table = seat->table;
 	pthread_mutex_lock(seat->left_fork);
 	write_with_mtx(seat, "has taken a fork");
 	pthread_mutex_lock(seat->right_fork);
 	write_with_mtx(seat, "has taken a fork");
 	set_longlong(seat->eat_mtx, &seat->last_eaten, get_current_time());
 	write_with_mtx(seat, "is eating");
-	philo_pause(seat->table->time_to_eat, seat->table->philo_count, seat->table);
+	philo_pause(table->time_to_eat, table->philo_count, table);
 	seat->meals_eaten++;
 	pthread_mutex_unlock(seat->left_fork);
 	pthread_mutex_unlock(seat->right_fork);
-	pthread_mutex_lock(seat->table->full_mutex);
+	pthread_mutex_lock(table->full_mutex);
 	if (seat->meals_eaten == seat->meals_to_eat)
-		seat->table->full++;
-	pthread_mutex_unlock(seat->table->full_mutex);
+		table->full++;
+	pthread_mutex_unlock(table->full_mutex);
 	write_with_mtx(seat, "is sleeping");
-	philo_pause(seat->table->time_to_sleep, seat->table->philo_count, seat->table);
-	if (seat->chair_num == seat->table->philo_count)
+	philo_pause(table->time_to_sleep, table->philo_count, table);
+	if (seat->chair_num == table->philo_count)
 		seat->chair_num = 1;
 	else
 		seat->chair_num++;

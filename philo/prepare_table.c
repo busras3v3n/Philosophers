@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:55:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/18 10:58:16 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/18 11:10:53 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ void	prepare_table(t_table *table)
 	}
 	i = 0;
 	tmp = *(table->seats);
-	if(table->philo_count == 1)
+	if (table->philo_count == 1)
 	{
 		tmp->prev = tmp;
-		tmp->next = tmp;	
+		tmp->next = tmp;
 	}
 	while (i < table->philo_count)
 	{
