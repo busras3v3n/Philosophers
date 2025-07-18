@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/18 11:16:36 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/18 11:23:33 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,21 @@ typedef struct s_table
 	int					time_to_sleep;
 	int					last_param;
 	int					has_last_param;
-	int					time_stamp;
-	int					all_threads_ready;
 	int					full;
 	pthread_mutex_t		*death_mutex;
 	pthread_mutex_t		*wait_mutex;
 	pthread_mutex_t		*write_mutex;
 	pthread_mutex_t		*full_mutex;
-	size_t				cur_time;
 	int					wait;
-	int					i;
-
 }	t_table;
 
 typedef struct s_seat
 {
 	int					num;
 	int					chair_num;
-	int					born_time;
 	size_t				last_eaten;
 	int					meals_to_eat;
 	int					meals_eaten;
-	int					last_philo;
-	int					has_opt_param;
 	size_t				start_time;
 	pthread_t			*philosopher;
 	pthread_mutex_t		*left_fork;
