@@ -6,11 +6,28 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:11 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/18 10:17:10 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/18 10:24:06 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	join_threads(t_seat *seats, t_table *table)
+{
+	int	i;
+
+	i = 1;
+	while (i <= table->philo_count)
+	{
+		if (table->philo_count > 1)
+			pthread_join(*(seats->philosopher), NULL);
+		else
+			pthread_detach(*(seats->philosopher));
+		seats = seats->next;
+		i++;
+	}
+	pthread_join(*(table->waiter), NULL);
+}
 
 void	invite_philosophers(t_table *table)
 {
@@ -30,18 +47,8 @@ void	invite_philosophers(t_table *table)
 	}
 	set_int(table->wait_mutex, &(table->wait), 1);
 	pthread_create(table->waiter, NULL, waiter, table);
-	i = 1;
 	seats = *(table->seats);
-	while (i <= table->philo_count)
-	{
-		if(table->philo_count > 1)
-			pthread_join(*(seats->philosopher), NULL);
-		else
-			pthread_detach(*(seats->philosopher));
-		seats = seats->next;
-		i++;
-	}
-	pthread_join(*(table->waiter), NULL);
+	join_threads(seats, table);
 }
 
 void	free_data(t_table *table)
