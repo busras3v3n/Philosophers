@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 15:48:49 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/18 10:05:02 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_seat
 }	t_seat;
 
 void				ft_putendl_fd(char *s, int fd);
-int					ft_isdigit(int c);
+int					ft_nonzero_digit(int c);
 int					ft_atoi(const char *str);
 char				*ft_strchr(const char *s, int c);
 size_t				ft_strlen(const char *s);

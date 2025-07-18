@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:53:30 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 15:25:11 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/18 10:09:00 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	eat_sleep_routine(t_seat *seat)
 	write_with_mtx(seat, "has taken a fork");
 	if (seat->table->philo_count == 1)
 		return ;
-	pthread_mutex_lock(seat->right_fork);
+	if(seat->table->philo_count > 1)
+		pthread_mutex_lock(seat->right_fork);
 	write_with_mtx(seat, "has taken a fork");
 	set_longlong(seat->eat_mtx, &seat->last_eaten, get_current_time());
 	write_with_mtx(seat, "is eating");

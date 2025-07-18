@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:11 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 15:48:34 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/18 10:17:10 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	invite_philosophers(t_table *table)
 	seats = *(table->seats);
 	while (i <= table->philo_count)
 	{
-		pthread_join(*(seats->philosopher), NULL);
+		if(table->philo_count > 1)
+			pthread_join(*(seats->philosopher), NULL);
+		else
+			pthread_detach(*(seats->philosopher));
 		seats = seats->next;
 		i++;
 	}
@@ -103,7 +106,7 @@ int	main(int argc, char **argv)
 		if (argc != 6 && argc != 5)
 			ft_putendl_fd("Invalid format: bad argc", 2);
 		else
-			ft_putendl_fd("Invalid format: non-integer arg(s)", 2);
+			ft_putendl_fd("Invalid format: non-positiveinteger arg(s)", 2);
 		wrong_format();
 		return (0);
 	}

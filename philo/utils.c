@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:56:22 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 14:58:22 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/18 10:08:11 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-int	ft_isdigit(int c)
+int	ft_nonzero_digit(int c)
 {
 	if (c >= 48 && c <= 57)
 		return (1);

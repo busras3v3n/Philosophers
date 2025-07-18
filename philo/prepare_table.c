@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:55:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 15:31:01 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/18 10:16:02 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	prepare_table(t_table *table)
 	tmp = *(table->seats);
 	while (i < table->philo_count)
 	{
-		if (tmp->prev)
+		if (tmp->prev && table->philo_count > 1)
 			tmp->right_fork = tmp->prev->left_fork;
 		table->philo_arr[i] = (void *)tmp;
 		i++;
