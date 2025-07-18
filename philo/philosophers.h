@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/18 10:05:02 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/18 10:46:26 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void				ft_putnbr_fd(size_t n, int fd);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 void				write_with_mtx(t_seat *seat, char *action);
 size_t				get_time_stamp(t_seat *seat);
-void				philo_pause(size_t time, int philo_count);
+void				philo_pause(size_t time, int philo_count, t_table *table);
 void				write_death(t_seat *seat, long long timestamp);
 size_t				time_since_eaten(t_seat *seat);
 void				*waiter(void *void_table);
