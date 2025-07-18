@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:52:12 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/18 11:17:42 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/18 11:19:20 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	is_valid_input(char **argv)
 	while (argv[i])
 	{
 		n = 0;
-		if(ft_atoi(argv[i]) < 1)
+		if (ft_atoi(argv[i]) < 1)
 			return (0);
 		while (argv[i][n])
 		{
