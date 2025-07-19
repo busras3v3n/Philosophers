@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:11 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/19 11:13:53 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/19 11:50:15 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	free_data(t_table *table)
 	free(table);
 }
 
-void	init_data(t_table *table, char **argv, int argc)
+int	init_data(t_table *table, char **argv, int argc)
 {
 	table->philo_count = ft_atoi(argv[1]);
 	table->time_to_die = ft_atoi(argv[2]);
@@ -83,17 +83,25 @@ void	init_data(t_table *table, char **argv, int argc)
 		table->has_last_param = 1;
 		table->last_param = ft_atoi(argv[5]);
 	}
-	pthread_mutex_init(&table->wait_mutex, NULL);
-	pthread_mutex_init(&table->death_mutex, NULL);
-	pthread_mutex_init(&table->write_mutex, NULL);
-	pthread_mutex_init(&table->full_mutex, NULL);
+	if (pthread_mutex_init(&table->wait_mutex, NULL))
+		return (1);
+	if (pthread_mutex_init(&table->death_mutex, NULL))
+		return (2);
+	if (pthread_mutex_init(&table->write_mutex, NULL))
+		return (3);
+	if(pthread_mutex_init(&table->full_mutex, NULL))
+		return (4);
 	table->philo_arr = ft_calloc(table->philo_count, sizeof(t_seat *));
+	if(!table->philo_arr)
+		return (5);
 	prepare_table(table);
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_table	*table;
+	int		init_ret;
 
 	if ((argc != 6 && argc != 5) || !is_valid_input(argv))
 	{
@@ -105,7 +113,8 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	table = ft_calloc(1, sizeof(t_table));
-	init_data(table, argv, argc);
+	init_ret = init_data(table, argv, argc);
+	(void)init_ret;
 	invite_philosophers(table);
 	free_data(table);
 }
