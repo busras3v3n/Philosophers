@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/18 11:25:45 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/19 11:13:18 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 typedef struct s_table
 {
-	pthread_t			*waiter;
+	pthread_t			waiter;
 	struct s_seat		**seats;
 	void				**philo_arr;
 	int					death;
@@ -35,10 +35,10 @@ typedef struct s_table
 	int					last_param;
 	int					has_last_param;
 	int					full;
-	pthread_mutex_t		*death_mutex;
-	pthread_mutex_t		*wait_mutex;
-	pthread_mutex_t		*write_mutex;
-	pthread_mutex_t		*full_mutex;
+	pthread_mutex_t		death_mutex;
+	pthread_mutex_t		wait_mutex;
+	pthread_mutex_t		write_mutex;
+	pthread_mutex_t		full_mutex;
 	int					wait;
 }	t_table;
 
@@ -50,13 +50,13 @@ typedef struct s_seat
 	int					meals_to_eat;
 	int					meals_eaten;
 	size_t				start_time;
-	pthread_t			*philosopher;
+	pthread_t			philosopher;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
 	struct s_seat		*prev;
 	struct s_seat		*next;
 	t_table				*table;
-	pthread_mutex_t		*eat_mtx;
+	pthread_mutex_t		eat_mtx;
 }	t_seat;
 
 void				ft_putendl_fd(char *s, int fd);

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:56:39 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 15:25:19 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/19 11:08:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int	check_philo_death(t_table *table)
 	while (i < table->philo_count)
 	{
 		seat = table->philo_arr[i];
-		if (read_int(table->full_mutex, &table->full) == table->philo_count)
+		if (read_int(&table->full_mutex, &table->full) == table->philo_count)
 		{
-			set_int(table->death_mutex, &table->death, 1);
+			set_int(&table->death_mutex, &table->death, 1);
 			return (1);
 		}
 		else if (time_since_eaten(seat) >= table->time_to_die)
 		{
-			set_int(table->death_mutex, &table->death, 1);
+			set_int(&table->death_mutex, &table->death, 1);
 			write_death(seat, get_time_stamp(*(table->seats)));
 			return (1);
 		}

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:55:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/18 11:21:52 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/19 11:11:46 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,11 @@ t_seat	*new_seat(t_table *table, int id)
 	new = ft_calloc(1, sizeof(t_seat));
 	new->num = id;
 	new->chair_num = id;
-	new->philosopher = ft_calloc(1, sizeof(pthread_t));
 	if (table->has_last_param)
 		new->meals_to_eat = table->last_param;
 	new->left_fork = ft_calloc(1, sizeof(pthread_mutex_t));
-	new->eat_mtx = ft_calloc(1, sizeof(pthread_mutex_t));
 	pthread_mutex_init(new->left_fork, NULL);
-	pthread_mutex_init(new->eat_mtx, NULL);
+	pthread_mutex_init(&new->eat_mtx, NULL);
 	new->table = table;
 	new->next = NULL;
 	new->prev = NULL;

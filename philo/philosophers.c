@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:11 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/18 11:24:50 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/19 11:13:53 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	join_threads(t_seat *seats, t_table *table)
 	while (i <= table->philo_count)
 	{
 		if (table->philo_count > 1)
-			pthread_join(*(seats->philosopher), NULL);
+			pthread_join(seats->philosopher, NULL);
 		else
-			pthread_detach(*(seats->philosopher));
+			pthread_detach(seats->philosopher);
 		seats = seats->next;
 		i++;
 	}
-	pthread_join(*(table->waiter), NULL);
+	pthread_join(table->waiter, NULL);
 }
 
 void	invite_philosophers(t_table *table)
@@ -39,14 +39,14 @@ void	invite_philosophers(t_table *table)
 	table->start_time = get_current_time();
 	while (i <= table->philo_count)
 	{
-		set_longlong(seats->eat_mtx, &seats->last_eaten, table->start_time);
-		set_longlong(seats->eat_mtx, &seats->start_time, table->start_time);
-		pthread_create(seats->philosopher, NULL, routine, seats);
+		set_longlong(&seats->eat_mtx, &seats->last_eaten, table->start_time);
+		set_longlong(&seats->eat_mtx, &seats->start_time, table->start_time);
+		pthread_create(&seats->philosopher, NULL, routine, seats);
 		seats = seats->next;
 		i++;
 	}
-	set_int(table->wait_mutex, &(table->wait), 1);
-	pthread_create(table->waiter, NULL, waiter, table);
+	set_int(&table->wait_mutex, &(table->wait), 1);
+	pthread_create(&table->waiter, NULL, waiter, table);
 	seats = *(table->seats);
 	join_threads(seats, table);
 }
@@ -57,17 +57,11 @@ void	free_data(t_table *table)
 	t_seat	*tmp;
 	int		i;
 
-	free(table->wait_mutex);
-	free(table->death_mutex);
-	free(table->write_mutex);
-	free(table->full_mutex);
 	seat = *(table->seats);
 	i = 0;
 	while (i < table->philo_count)
 	{
 		free(seat->left_fork);
-		free(seat->eat_mtx);
-		free(seat->philosopher);
 		tmp = seat;
 		seat = seat->next;
 		free(tmp);
@@ -75,7 +69,6 @@ void	free_data(t_table *table)
 	}
 	free(table->seats);
 	free(table->philo_arr);
-	free(table->waiter);
 	free(table);
 }
 
@@ -90,15 +83,10 @@ void	init_data(t_table *table, char **argv, int argc)
 		table->has_last_param = 1;
 		table->last_param = ft_atoi(argv[5]);
 	}
-	table->wait_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
-	table->death_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
-	table->write_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
-	table->full_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
-	pthread_mutex_init(table->wait_mutex, NULL);
-	pthread_mutex_init(table->death_mutex, NULL);
-	pthread_mutex_init(table->write_mutex, NULL);
-	pthread_mutex_init(table->full_mutex, NULL);
-	table->waiter = ft_calloc(1, sizeof(pthread_t));
+	pthread_mutex_init(&table->wait_mutex, NULL);
+	pthread_mutex_init(&table->death_mutex, NULL);
+	pthread_mutex_init(&table->write_mutex, NULL);
+	pthread_mutex_init(&table->full_mutex, NULL);
 	table->philo_arr = ft_calloc(table->philo_count, sizeof(t_seat *));
 	prepare_table(table);
 }

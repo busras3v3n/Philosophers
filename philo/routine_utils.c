@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:55:31 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/18 11:25:04 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/19 11:08:45 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	philo_pause(size_t time, t_table *table)
 	{
 		if (usleep(sleep_duration))
 			return ;
-		if (read_int(table->death_mutex, &table->death))
+		if (read_int(&table->death_mutex, &table->death))
 			return ;
 	}
 }

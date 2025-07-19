@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:53:04 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/12 14:57:46 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/19 11:12:58 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ size_t	get_time_stamp(t_seat *seat)
 
 size_t	time_since_eaten(t_seat *seat)
 {
-	return (get_current_time() - read_long(seat->eat_mtx, &seat->last_eaten));
+	return (get_current_time() - read_long(&seat->eat_mtx, &seat->last_eaten));
 }
