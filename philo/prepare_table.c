@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:55:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/21 12:24:32 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/21 12:32:14 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,19 @@ int	add_seat_to_table(t_table *table, t_seat **seats, int id)
 	}
 	return (0);
 }
+int	add_seats(t_table	*table)
+{
+	int	i;
 
+	i = 1;
+	while (i <= table->philo_count)
+	{
+		if(add_seat_to_table(table, table->seats, i))
+			return (7);
+		i++;
+	}
+	return (0);
+}
 int	prepare_table(t_table *table)
 {
 	int		i;
@@ -84,12 +96,8 @@ int	prepare_table(t_table *table)
 	table->seats = ft_calloc(table->philo_count, sizeof(t_seat *));
 	if(!table->seats)
 		return (6);
-	while (i <= table->philo_count)
-	{
-		if(add_seat_to_table(table, table->seats, i))
-			return (7);
-		i++;
-	}
+	if(add_seats(table))
+		return (7);
 	i = 0;
 	tmp = *(table->seats);
 	if (table->philo_count == 1)

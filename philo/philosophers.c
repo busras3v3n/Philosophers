@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:11 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/21 12:24:49 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/21 12:28:04 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	free_data(t_table *table, int ret)
 	int		i;
 
 	i = 0;
-	if(ret >= 7)
+	if (ret >= 7)
 	{
 		seat = *(table->seats);
 		while (i < table->philo_count)
@@ -69,9 +69,9 @@ void	free_data(t_table *table, int ret)
 			free(tmp);
 			i++;
 		}
-		free(table->seats);	
+		free(table->seats);
 	}
-	if(ret >= 6)
+	if (ret >= 6)
 		free(table->philo_arr);
 	free(table);
 }
@@ -93,10 +93,10 @@ int	init_data(t_table *table, char **argv, int argc)
 		return (2);
 	if (pthread_mutex_init(&table->write_mutex, NULL))
 		return (3);
-	if(pthread_mutex_init(&table->full_mutex, NULL))
+	if (pthread_mutex_init(&table->full_mutex, NULL))
 		return (4);
 	table->philo_arr = ft_calloc(table->philo_count, sizeof(t_seat *));
-	if(!table->philo_arr)
+	if (!table->philo_arr)
 		return (5);
 	return (prepare_table(table));
 }
@@ -117,7 +117,7 @@ int	main(int argc, char **argv)
 	}
 	table = ft_calloc(1, sizeof(t_table));
 	init_ret = init_data(table, argv, argc);
-	if(init_ret == 0)
+	if (init_ret == 0)
 		invite_philosophers(table);
 	free_data(table, init_ret);
 }
