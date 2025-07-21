@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:55:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/21 12:32:14 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/21 12:33:49 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ t_seat	*new_seat(t_table *table, int id)
 	if (table->has_last_param)
 		new->meals_to_eat = table->last_param;
 	new->left_fork = ft_calloc(1, sizeof(pthread_mutex_t));
-	if(!new->left_fork)
+	if (!new->left_fork)
 	{
 		free(new);
 		return (NULL);
 	}
-	if(pthread_mutex_init(new->left_fork, NULL))
+	if (pthread_mutex_init(new->left_fork, NULL))
 		return (NULL);
-	if(pthread_mutex_init(&new->eat_mtx, NULL))
+	if (pthread_mutex_init(&new->eat_mtx, NULL))
 		return (NULL);
 	new->table = table;
 	new->next = NULL;
@@ -55,14 +55,14 @@ int	add_seat_to_table(t_table *table, t_seat **seats, int id)
 	if (*seats == NULL)
 	{
 		*seats = new_seat(table, id);
-		if(!(*seats))
+		if (!(*seats))
 			return (1);
 	}
 	else
 	{
 		last = ft_lastnode(*seats);
 		last->next = new_seat(table, id);
-		if(!last->next)
+		if (!last->next)
 			return (1);
 		last->next->prev = last;
 		if (id == table->philo_count)
@@ -74,6 +74,7 @@ int	add_seat_to_table(t_table *table, t_seat **seats, int id)
 	}
 	return (0);
 }
+
 int	add_seats(t_table	*table)
 {
 	int	i;
@@ -81,12 +82,13 @@ int	add_seats(t_table	*table)
 	i = 1;
 	while (i <= table->philo_count)
 	{
-		if(add_seat_to_table(table, table->seats, i))
+		if (add_seat_to_table(table, table->seats, i))
 			return (7);
 		i++;
 	}
 	return (0);
 }
+
 int	prepare_table(t_table *table)
 {
 	int		i;
@@ -94,9 +96,9 @@ int	prepare_table(t_table *table)
 
 	i = 1;
 	table->seats = ft_calloc(table->philo_count, sizeof(t_seat *));
-	if(!table->seats)
+	if (!table->seats)
 		return (6);
-	if(add_seats(table))
+	if (add_seats(table))
 		return (7);
 	i = 0;
 	tmp = *(table->seats);
