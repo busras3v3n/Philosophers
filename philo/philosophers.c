@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:11 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/19 11:50:15 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/21 12:24:49 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,24 +51,28 @@ void	invite_philosophers(t_table *table)
 	join_threads(seats, table);
 }
 
-void	free_data(t_table *table)
+void	free_data(t_table *table, int ret)
 {
 	t_seat	*seat;
 	t_seat	*tmp;
 	int		i;
 
-	seat = *(table->seats);
 	i = 0;
-	while (i < table->philo_count)
+	if(ret >= 7)
 	{
-		free(seat->left_fork);
-		tmp = seat;
-		seat = seat->next;
-		free(tmp);
-		i++;
+		seat = *(table->seats);
+		while (i < table->philo_count)
+		{
+			free(seat->left_fork);
+			tmp = seat;
+			seat = seat->next;
+			free(tmp);
+			i++;
+		}
+		free(table->seats);	
 	}
-	free(table->seats);
-	free(table->philo_arr);
+	if(ret >= 6)
+		free(table->philo_arr);
 	free(table);
 }
 
@@ -94,8 +98,7 @@ int	init_data(t_table *table, char **argv, int argc)
 	table->philo_arr = ft_calloc(table->philo_count, sizeof(t_seat *));
 	if(!table->philo_arr)
 		return (5);
-	prepare_table(table);
-	return (0);
+	return (prepare_table(table));
 }
 
 int	main(int argc, char **argv)
@@ -114,7 +117,7 @@ int	main(int argc, char **argv)
 	}
 	table = ft_calloc(1, sizeof(t_table));
 	init_ret = init_data(table, argv, argc);
-	(void)init_ret;
-	invite_philosophers(table);
-	free_data(table);
+	if(init_ret == 0)
+		invite_philosophers(table);
+	free_data(table, init_ret);
 }
