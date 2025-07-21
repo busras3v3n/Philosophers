@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:55:00 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/21 12:33:49 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/21 12:39:05 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,5 @@ int	prepare_table(t_table *table)
 		i++;
 		tmp = tmp->next;
 	}
-	return (0);
+	return (8);
 }
