@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/21 12:43:30 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/21 14:32:11 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <sys/time.h>
+# include <limits.h>
 
 typedef struct s_table
 {
@@ -85,5 +86,7 @@ size_t				time_since_eaten(t_seat *seat);
 void				*waiter(void *void_table);
 void				*routine(void *void_seat);
 void				free_data(t_table *table, int ret);
+char				*ft_itoa(int n);
+char				*ft_strdup(const char *s1);
 
 #endif

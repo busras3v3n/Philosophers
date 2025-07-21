@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:52:12 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/18 11:19:20 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/21 14:34:40 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,28 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
+int	is_int(char	*num)
+{
+	char	*int_max_str;
+
+	int_max_str = ft_itoa(INT_MAX);
+	if (ft_strlen(num) > ft_strlen(int_max_str))
+	{
+		free(int_max_str);
+		return (0);
+	}
+	else if (ft_strlen(num) == ft_strlen(int_max_str))
+	{
+		if (ft_strncmp(num, int_max_str, ft_strlen(num)))
+		{
+			free(int_max_str);
+			return (0);
+		}
+	}
+	free(int_max_str);
+	return (1);
+}
+
 int	is_valid_input(char **argv)
 {
 	int	i;
@@ -32,6 +54,8 @@ int	is_valid_input(char **argv)
 	while (argv[i])
 	{
 		n = 0;
+		if (!is_int(argv[i]))
+			return (0);
 		if (ft_atoi(argv[i]) < 1)
 			return (0);
 		while (argv[i][n])

@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:52:28 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/10 17:55:59 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/21 14:34:02 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,54 @@ int	ft_atoi(const char *str)
 	}
 	result = result * sign;
 	return (result);
+}
+
+static int	ft_intlen(int i)
+{
+	int	len;
+	int	x;
+
+	x = i;
+	len = 0;
+	if (x < 0)
+	{
+		len++;
+		x = -x;
+	}
+	while (x / 10 != 0)
+	{
+		len++;
+		x = x / 10;
+	}
+	len++;
+	return (len);
+}
+
+char	*ft_itoa(int n)
+{
+	char	*str;
+	int		i;
+	int		isnegative;
+
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	i = ft_intlen(n) - 1;
+	str = malloc(ft_intlen(n) * sizeof(char) + 1);
+	isnegative = 0;
+	if (!str)
+		return (NULL);
+	str[ft_intlen(n)] = '\0';
+	if (n < 0)
+	{
+		str[0] = '-';
+		n = -n;
+		isnegative = 1;
+	}
+	while (i >= isnegative)
+	{
+		str[i] = (n % 10) + '0';
+		n = n / 10;
+		i--;
+	}
+	return (str);
 }
