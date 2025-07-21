@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/19 11:13:18 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/21 11:59:24 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int					is_valid_input(char **argv);
 void				wrong_format(void);
 void				*ft_calloc(size_t count, size_t size);
 t_seat				*ft_lastnode(t_seat *seats);
-void				prepare_table(t_table *table);
+int					prepare_table(t_table *table);
 size_t				get_current_time(void);
 int					ft_atoi(const char *str);
 void				set_int(pthread_mutex_t *mtx, int *i, int set);
