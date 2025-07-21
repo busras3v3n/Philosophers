@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:32 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/21 12:21:43 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/21 12:43:30 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <stdio.h>
-# include <limits.h>
 # include <sys/time.h>
 
 typedef struct s_table
