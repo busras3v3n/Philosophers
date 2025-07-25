@@ -6,27 +6,11 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:53:30 by busseven          #+#    #+#             */
-/*   Updated: 2025/07/19 11:12:38 by busseven         ###   ########.fr       */
+/*   Updated: 2025/07/25 16:39:37 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-pthread_mutex_t	*get_bigger_fork(t_seat *seat)
-{
-	if (seat->left_fork >= seat->right_fork)
-		return (seat->left_fork);
-	else
-		return (seat->right_fork);
-}
-
-pthread_mutex_t	*get_smaller_fork(t_seat *seat)
-{
-	if (seat->left_fork < seat->right_fork)
-		return (seat->left_fork);
-	else
-		return (seat->right_fork);
-}
 
 void	think_routine(t_seat *seat)
 {
@@ -39,12 +23,14 @@ void	think_routine(t_seat *seat)
 
 void	eat_sleep_routine(t_seat *seat)
 {
-	t_table	*table;
+	t_table			*table;
+	pthread_mutex_t	*right_fork;
 
+	right_fork = seat->right_fork;
 	table = seat->table;
 	pthread_mutex_lock(seat->left_fork);
 	write_with_mtx(seat, "has taken a fork");
-	pthread_mutex_lock(seat->right_fork);
+	pthread_mutex_lock(right_fork);
 	write_with_mtx(seat, "has taken a fork");
 	set_longlong(&seat->eat_mtx, &seat->last_eaten, get_current_time());
 	write_with_mtx(seat, "is eating");
